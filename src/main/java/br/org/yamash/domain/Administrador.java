@@ -26,7 +26,7 @@ public class Administrador {
 	@Column(name="email",length=120, nullable=false)
 	private String email;
 	
-	@Column(name="senha", length=16, nullable=false)
+	@Column(name="senha", length=16)
 	private String senha;
 	 
 	@Column(name="telefone", length=20, nullable=true)
