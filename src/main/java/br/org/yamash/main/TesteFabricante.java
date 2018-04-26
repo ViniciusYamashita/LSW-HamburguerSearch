@@ -17,26 +17,26 @@ public class TesteFabricante {
 		System.out.println("## Teste salvar Administrador");
 		
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Administrador admin = new Administrador();
-		admin.setCpf("43735656798");
-		admin.setDtNascimento(format.parse("1998-08-09"));
-		admin.setEmail("vinicius.yamashita@hotmail.com.br");
-		admin.setNomeCompleto("Vinicius Yamashita");
-		admin.setStatusAdmin(1);
-		admin.setSenha(null);
-		admin.setTelefone("997332307");
-		testeSalvarFabricante(admin);
-		
-		
-//		Fabricante f = new Fabricante();
-//		f.setCodigo(5L);
-//		f.setDescricao("Orkut");
-//		testeDeletarFabricante(f);
+//		admin.setCpf("45678978909");
+//		admin.setDtNascimento(format.parse("1984-12-03"));
+//		admin.setEmail("vinicius.yamashita@hotmail.com.br");
+//		admin.setNomeCompleto("Vinicius Yamashita");
+//		admin.setStatusAdmin(1);
+//		admin.setSenha("123456");
+//		admin.setTelefone("996765678");
+//		//testeSalvar(admin);
 //		
+//		admin.setCodAdmin(1l);
+//		testeAlterar(admin);
+		
+		autenticar();
+		
+		
 	}
 	
-	private static void testeSalvarFabricante (Administrador admin) {
+	private static void testeSalvar (Administrador admin) {
 		
 		AdministradorDAO fd = new AdministradorDAO();
 		fd.salvar(admin);
@@ -61,20 +61,29 @@ public class TesteFabricante {
 			System.out.println("################################################################################");
 			System.out.println("Codigo: " + f.getCodigo() + "\nFabricante: " + f.getDescricao() + "\n");
 		}
-	}
-	
-	private static void testeAlterarFabricante (Fabricante f) {
-		
-		FabricanteDAO fd = new FabricanteDAO();
-		fd.alterar(f);
-		
-	}
-	
-	private static void testeDeletarFabricante (Fabricante f) {
-		
-		FabricanteDAO fd = new FabricanteDAO();
-		fd.deletar(f);
-		
 	}*/
+	
+	private static void testeAlterar (Administrador admin) {
+		
+		AdministradorDAO adminD = new AdministradorDAO();
+		adminD.alterar(admin);
+		
+	}
+	
+	
+	private static void testeDeletar (Administrador admin) {
+		
+		AdministradorDAO adminD = new AdministradorDAO();
+		adminD.deletar(admin);
+		
+	}
+	
+	public static void autenticar() {
+		AdministradorDAO adminD = new AdministradorDAO();
+		
+		Administrador admin = AdministradorDAO.autenticar("123123121", "123456");
+		
+		System.out.println("Administrador: " + admin);
+	}
 	
 }

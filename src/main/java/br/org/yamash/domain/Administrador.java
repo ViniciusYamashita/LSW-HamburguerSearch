@@ -4,14 +4,19 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.NotFound;
+
 @Entity
 @Table(name="Administrador")
+@NamedQueries({
+	@NamedQuery(name="administrador.autenticar", query="SELECT admin FROM Administrador admin WHERE admin.cpf = :cpf AND admin.senha = :senha")
+})
 public class Administrador {
  
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="codAdmin")
-	private long coAdmin;
+	private long codAdmin;
 	 
 	@Column(name="nomeCompleto", length=120, nullable=false)
 	private String nomeCompleto;
@@ -20,7 +25,7 @@ public class Administrador {
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
 	
-	@Column(name="cpf", length=11, nullable=false)
+	@Column(name="cpf", length=11, nullable=false, unique=true)
 	private String cpf;
 	 
 	@Column(name="email",length=120, nullable=false)
@@ -35,12 +40,12 @@ public class Administrador {
 	@Column(name="statusAdmin", nullable=false)
 	private int statusAdmin;
 
-	public long getCoAdmin() {
-		return coAdmin;
+	public long getCodAdmin() {
+		return codAdmin;
 	}
 
-	public void setCoAdmin(long coAdmin) {
-		this.coAdmin = coAdmin;
+	public void setCodAdmin(long codAdmin) {
+		this.codAdmin = codAdmin;
 	}
 
 	public String getNomeCompleto() {
