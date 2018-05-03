@@ -58,12 +58,12 @@ public class BaseDAO<Entidade> {
 		}
 	}
 	
-	public Entidade ListarPorEntidade(Long codigo){
+	public Entidade ListarPorEntidade(Long cod){
 		Session s = HibernateUtil.getSessionFactory().openSession();
 		
 		try {
 			Criteria query = s.createCriteria(classe);
-			query.add(Restrictions.idEq(codigo));
+			query.add(Restrictions.idEq(cod));
 			Entidade ent = (Entidade) query.uniqueResult();
 			return ent;
 			

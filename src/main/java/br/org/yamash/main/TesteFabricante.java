@@ -19,21 +19,22 @@ public class TesteFabricante {
 		
 //		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Administrador admin = new Administrador();
-//		admin.setCpf("45678978909");
-//		admin.setDtNascimento(format.parse("1984-12-03"));
+//		admin.setCpf("43746798809");
+//		admin.setDtNascimento(format.parse("1978-07-12"));
 //		admin.setEmail("vinicius.yamashita@hotmail.com.br");
-//		admin.setNomeCompleto("Vinicius Yamashita");
+//		admin.setNomeCompleto("Renato Duarte");
 //		admin.setStatusAdmin(1);
 //		admin.setSenha("123456");
-//		admin.setTelefone("996765678");
-//		//testeSalvar(admin);
+//		admin.setTelefone("995678909");
+//		testeSalvar(admin);
 //		
 //		admin.setCodAdmin(1l);
 //		testeAlterar(admin);
 		
-		autenticar();
+		admin.setCodAdmin(2l);;
+		testeListarPorEntidade(admin);
 		
-		
+		//autenticar();
 	}
 	
 	private static void testeSalvar (Administrador admin) {
@@ -43,25 +44,23 @@ public class TesteFabricante {
 		
 	}
 	
-	/*private static void testeListarFabricante() {
-		FabricanteDAO fd = new FabricanteDAO();
-		List<Fabricante> listagem = fd.Listar();
-		
-		for (Fabricante f : listagem) {
-			System.out.println("################################################################################");
-			System.out.println("Codigo: " + f.getCodigo() + "\nFabricante: " + f.getDescricao() + "\n");
-		}
-	}
+//	private static void testeListarFabricante() {
+//		FabricanteDAO fd = new FabricanteDAO();
+//		List<Fabricante> listagem = fd.Listar();
+//		
+//		for (Fabricante f : listagem) {
+//			System.out.println("################################################################################");
+//			System.out.println("Codigo: " + f.getCodigo() + "\nFabricante: " + f.getDescricao() + "\n");
+//		}
+//	}
 	
-	private static void testeListarFabricantePorEntidade() {
-		FabricanteDAO fd = new FabricanteDAO();
-		List<Fabricante> listagem = fd.Listar();
+	private static void testeListarPorEntidade(Administrador admin) {
+		AdministradorDAO adminD = new AdministradorDAO();
+		Administrador listagem = adminD.ListarPorEntidade(admin.getCodAdmin());
 		
-		for (Fabricante f : listagem) {
 			System.out.println("################################################################################");
-			System.out.println("Codigo: " + f.getCodigo() + "\nFabricante: " + f.getDescricao() + "\n");
-		}
-	}*/
+			System.out.println("CPF: " + listagem.getCpf() + "\nNome: " + listagem.getNomeCompleto() + "\n");
+	}
 	
 	private static void testeAlterar (Administrador admin) {
 		
@@ -81,7 +80,7 @@ public class TesteFabricante {
 	public static void autenticar() {
 		AdministradorDAO adminD = new AdministradorDAO();
 		
-		Administrador admin = AdministradorDAO.autenticar("123123121", "123456");
+		Administrador admin = AdministradorDAO.autenticar("", "123456");
 		
 		System.out.println("Administrador: " + admin);
 	}
