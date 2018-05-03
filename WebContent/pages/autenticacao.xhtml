@@ -20,13 +20,13 @@
 		<h:panelGrid columns="2">
 			<p:outputLabel value="CPF: " />
 			<p:inputMask size="20" mask="999.999.999-99" 
-				value="#{autenticacaoBean.adminLogado.Administrador.cpf}" >
+				value="#{autenticacaoBean.adminLogado.cpf}" >
 				<f:validateBean />
 			</p:inputMask>
 			
 			<p:outputLabel value="Senha: " />
 			<p:password maxlength="8" size="20" 
-				value="#{autenticacaoBean.adminLogado.Administrador.senha}">
+				value="#{autenticacaoBean.adminLogado.senha}">
 				<f:validateBean />
 			</p:password>
 		</h:panelGrid>
