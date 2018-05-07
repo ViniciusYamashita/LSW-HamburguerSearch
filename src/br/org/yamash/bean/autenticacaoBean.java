@@ -9,17 +9,17 @@ import br.org.yamash.domain.Administrador;
 @SessionScoped
 public class autenticacaoBean {
 	
-	private Administrador adminLogado;
+	private Administrador admin;
 	
-	public Administrador getAdminLogado() {
-		if (adminLogado == null) {
-			adminLogado = new Administrador();
+	public Administrador getAdmin() {
+		if (admin == null) {
+			admin = new Administrador();
 		}
-		return adminLogado;
+		return admin;
 	}
 	
-	public void setAdminLogado(Administrador adminLogado) {
-		this.adminLogado = adminLogado;
+	public void setAdmin(Administrador admin) {
+		this.admin = admin;
 	}
 
 }

@@ -3,9 +3,8 @@ package br.org.yamash.domain;
 import java.util.Date;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
@@ -27,7 +26,7 @@ public class Administrador {
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
 	
-	@CPF(message="O campo 'CPF' é obrigatório.")
+	@CPF(message="O campo 'CPF' é obrigatório, ou invalido.")
 	@Column(name="cpf", length=11, nullable=false, unique=true)
 	private String cpf;
 	
@@ -36,7 +35,6 @@ public class Administrador {
 	private String email;
 	
 	@NotEmpty(message="O campo 'senha' é obrigatório.")
-	@Size(min=1, max=16, message="Campo muito comprido (1 - 16)")
 	@Column(name="senha", length=16)
 	private String senha;
 	 
