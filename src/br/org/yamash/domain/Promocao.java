@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name="Promocao")
 public class Promocao {
@@ -13,17 +15,21 @@ public class Promocao {
 	@Column(name="codPromocao")
 	private long codPromocao;
 	 
+	@NotEmpty(message="O campo 'Tipo de Promoção' é obrigatório.")
 	@Column(name="tipoPromocao", nullable=false)
 	private int tipoPromocao;
 	 
+	@NotEmpty(message="O campo 'Data início' é obrigatório.")
 	@Column(name="dtInicio", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtInicio;
-	 
+	
+	@NotEmpty(message="O campo 'Data Fim' é obrigatório.")
 	@Column(name="dtFim", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtFim;
 	 
+	@NotEmpty(message="O campo 'Valor da promoção' é obrigatório.")
 	@Column(name="valorPromcao", nullable=false)
 	private float valorPromocao;
 

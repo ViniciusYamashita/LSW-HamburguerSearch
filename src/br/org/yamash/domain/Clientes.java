@@ -6,10 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="Clientes")
+@NamedQueries({
+	@NamedQuery(name="cliente.autenticar", query="SELECT cliente FROM Clientes cliente WHERE cliente.email = :email AND cliente.senha = :senha")
+})
 public class Clientes {
  
 	@Id
@@ -17,18 +24,21 @@ public class Clientes {
 	@Column(name="codCliente")
 	private long codCliente;
 	
+	@NotEmpty(message="O campo 'Nome Completo' é obrigatório.")
 	@Column(name="nomeCompleto", length=120, nullable=false)
 	private String nomeCompleto;
-
+	
 	@Column(name="statusCliente", nullable=false)
 	private int statusCliente;
-	 
+	
 	@Column(name="apelido", length=50, nullable=true)
 	private String apelido;
-	 
+	
+	@NotEmpty(message="O campo 'E-mail' é obrigatório.")
 	@Column(name="email", length=120, nullable=false)
 	private String email;
 	 
+	@NotEmpty(message="O campo 'Senha' é obrigatório.")
 	@Column(name="senha", length=16, nullable=false)
 	private String senha;
 

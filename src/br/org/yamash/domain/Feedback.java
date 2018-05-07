@@ -3,6 +3,9 @@ package br.org.yamash.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="Feedback")
@@ -28,10 +31,13 @@ public class Feedback {
 	@Column(name="dtFeedback", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtFeedback;
-	 
+	
+	@NotEmpty(message="A 'Média' é obrigatória para o Feedback.")
 	@Column(name="valorMedia", nullable=false)
 	private float valorMedia;
 	 
+	@NotEmpty(message="Para realizar o Feedback não se esqueça de preencher o campo 'Comentario'.")
+	@Size(min=3, message="Para que a empresa possa melhorar os comentarios devem ter no minimo 3 caracteres, ou seja apenas uma palavra.")
 	@Column(name="comentario", length=500, nullable=false)
 	private String comentario;
 

@@ -19,9 +19,11 @@ public class Administrador {
 	@Column(name="codAdmin")
 	private long codAdmin;
 	 
+	@NotEmpty(message="O campo 'Nome Completo' é obrigatório.")
 	@Column(name="nomeCompleto", length=120, nullable=false)
 	private String nomeCompleto;
 	 
+	@NotEmpty(message="O campo 'Data de Nascimento' é obrigatório.")
 	@Column(name="dtNascimento", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
@@ -30,11 +32,11 @@ public class Administrador {
 	@Column(name="cpf", length=11, nullable=false, unique=true)
 	private String cpf;
 	
-	@NotEmpty(message="O campo 'e-mail' é obrigatório.")
+	@NotEmpty(message="O campo 'E-mail' é obrigatório.")
 	@Column(name="email",length=120, nullable=false)
 	private String email;
 	
-	@NotEmpty(message="O campo 'senha' é obrigatório.")
+	@NotEmpty(message="O campo 'Senha' é obrigatório.")
 	@Column(name="senha", length=16)
 	private String senha;
 	 

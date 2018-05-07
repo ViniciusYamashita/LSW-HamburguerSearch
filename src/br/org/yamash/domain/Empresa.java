@@ -2,8 +2,14 @@ package br.org.yamash.domain;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
+
 @Entity
 @Table(name="Empresa")
+@NamedQueries({
+	@NamedQuery(name="empresa.autenticar", query="SELECT empresa FROM Empresa empresa WHERE empresa.nomeUsuario = :nomeUsuario AND empresa.senha = :senha")
+})
 public class Empresa {
  
 	@Id
@@ -11,33 +17,43 @@ public class Empresa {
 	@Column(name="codEmpresa")
 	private long codEmpresa;
 	 
+	@CNPJ(message="O campo 'CNPJ' é obirgatório, ou inválido.")
 	@Column(name="cnpj", length=14, nullable=false)
 	private String cnpj;
 	 
+	@NotEmpty(message="O campo 'Nome da Empresa' é obirgatório, ou inválido.")
 	@Column(name="nome", length=100, nullable=false)
 	private String nome;
-	 
+	
+	@NotEmpty(message="O campo 'Razão social/Fantasia' é obirgatório, ou inválido.")
 	@Column(name="razaoSocialFantasia", length=255, nullable=false)
 	private String razaoSociaFantasia;
 	 
+	@NotEmpty(message="O campo 'CEP' é obirgatório, ou inválido.")
 	@Column(name="cep", length=8, nullable=false)
 	private String cep;
 	 
+	@NotEmpty(message="O campo 'Logradouro' é obirgatório, ou inválido.")
 	@Column(name="logradouro", length=255, nullable=false)
 	private String logradouro;
 	 
+	@NotEmpty(message="O campo 'Bairro' é obirgatório, ou inválido.")
 	@Column(name="bairro", length=100, nullable=false)
 	private String bairro;
 	 
+	@NotEmpty(message="O campo 'Nº' é obirgatório, ou inválido.")
 	@Column(name="numeroLocal", length=10, nullable=false)
 	private String numeroLocal;
 	 
+	@NotEmpty(message="O campo 'E-mail' é obirgatório, ou inválido.")
 	@Column(name="email", length=120, nullable=false)
 	private String email;
 	
+	@NotEmpty(message="O campo 'Nome de Usuário' é obirgatório, ou inválido.")
 	@Column(name="nomeUsuario", length=40, nullable=false)
 	private String nomeUsuario;
 	
+	@NotEmpty(message="O campo 'Senha' é obirgatório, ou inválido.")
 	@Column(name="senha", length=16, nullable=false)
 	private String senha;
 	 
@@ -47,12 +63,15 @@ public class Empresa {
 	@Column(name="nomeProprietario", length=120)
 	private String nomeProprietario;
 	 
+	@NotEmpty(message="O campo 'Horario de Abertura' é obirgatório, ou inválido.")
 	@Column(name="horarioAbertura", length=8, nullable=false)
 	private String horarioAbertura;
 	 
+	@NotEmpty(message="O campo 'Horario de Fechamento' é obirgatório, ou inválido.")
 	@Column(name="horarioFechamento", length=8, nullable=false)
 	private String horarioFechamento;
 	 
+	@NotEmpty(message="O campo 'Dias Abertos' é obirgatório, ou inválido.")
 	@Column(name="diasAberto", length=60, nullable=false)
 	private String diasAberto;
 	 

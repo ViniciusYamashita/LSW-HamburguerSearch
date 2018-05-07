@@ -1,6 +1,9 @@
 package br.org.yamash.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="Item")
@@ -11,15 +14,20 @@ public class Item {
 	@Column(name="codItem")
 	private int codItem;
 	 
+	@NotEmpty(message="O campo 'Nome do Produto' é obrigatório.")
 	@Column(name="nome", length=80, nullable=false)
 	private String nome;
 	 
+	@NotEmpty(message="O campo 'Descrição' é obrigatória.")
+	@Size(min=10, message="Para que os clientes possam ter uma experiencia melhor, a 'Descrição' deve conter no minimo 10 caracteres.")
 	@Column(name="descricao", length=500, nullable=false)
 	private String descricao;
 	 
+	@NotEmpty(message="O campo 'Preço' é obrigatório.")
 	@Column(name="preco", nullable=false)
 	private float preco;
 	 
+	@NotEmpty(message="É necessario o upload de uma imagem do produto")
 	@Column(name="foto", length=255, nullable=false)
 	private String foto;
 	 
