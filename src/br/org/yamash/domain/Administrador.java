@@ -23,13 +23,13 @@ public class Administrador {
 	@Column(name="nomeCompleto", length=120, nullable=false)
 	private String nomeCompleto;
 	 
-	@NotEmpty(message="O campo 'Data de Nascimento' é obrigatório.")
+	//@NotEmpty(message="O campo 'Data de Nascimento' é obrigatório.")
 	@Column(name="dtNascimento", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
 	
 	@CPF(message="O campo 'CPF' é obrigatório, ou invalido.")
-	@Column(name="cpf", length=11, nullable=false, unique=true)
+	@Column(name="cpf", length=14, nullable=false, unique=true)
 	private String cpf;
 	
 	@NotEmpty(message="O campo 'E-mail' é obrigatório.")

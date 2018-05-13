@@ -20,21 +20,21 @@ public class TesteFabricante {
 //		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Administrador admin = new Administrador();
 //		admin.setCpf("43746798809");
-//		admin.setDtNascimento(format.parse("1978-07-12"));
+//		admin.setDtNascimento(format.parse("1998-09-09"));
 //		admin.setEmail("vinicius.yamashita@hotmail.com.br");
 //		admin.setNomeCompleto("Renato Duarte");
 //		admin.setStatusAdmin(1);
 //		admin.setSenha("123456");
 //		admin.setTelefone("995678909");
 //		testeSalvar(admin);
-//		
+////		
 //		admin.setCodAdmin(1l);
 //		testeAlterar(admin);
 		
-		admin.setCodAdmin(2l);;
-		testeListarPorEntidade(admin);
-		
-		//autenticar();
+//		admin.setCodAdmin(2l);
+//		testeListarPorEntidade(admin);
+//		
+		autenticar();
 	}
 	
 	private static void testeSalvar (Administrador admin) {
@@ -54,13 +54,13 @@ public class TesteFabricante {
 //		}
 //	}
 	
-	private static void testeListarPorEntidade(Administrador admin) {
-		AdministradorDAO adminD = new AdministradorDAO();
-		Administrador listagem = adminD.ListarPorEntidade(admin.getCodAdmin());
-		
-			System.out.println("################################################################################");
-			System.out.println("CPF: " + listagem.getCpf() + "\nNome: " + listagem.getNomeCompleto() + "\n");
-	}
+//	private static void testeListarPorEntidade(Administrador admin) {
+//		AdministradorDAO adminD = new AdministradorDAO();
+//		Administrador listagem = adminD.ListarPorEntidade(admin.getCodAdmin());
+//		
+//			System.out.println("################################################################################");
+//			System.out.println("CPF: " + listagem.getCpf() + "\nNome: " + listagem.getNomeCompleto() + "\n");
+//	}
 	
 	private static void testeAlterar (Administrador admin) {
 		
@@ -80,7 +80,7 @@ public class TesteFabricante {
 	public static void autenticar() {
 		AdministradorDAO adminD = new AdministradorDAO();
 		
-		Administrador admin = AdministradorDAO.autenticar("", "123456");
+		Administrador admin = AdministradorDAO.autenticar("43746798809", "123456");
 		
 		System.out.println("Administrador: " + admin);
 	}

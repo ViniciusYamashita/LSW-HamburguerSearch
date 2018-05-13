@@ -18,25 +18,25 @@
 
 
 		<p:toolbar>
-			<f:facet name="left">
-				<h:outputText value="Autenticar"  />
+			<f:facet name="header">
+				<h:outputText value="Autenticar"/>
 			</f:facet>
 		</p:toolbar>
 
 		<h:panelGrid columns="2">
-			<p:outputLabel value="CPF: " />
-			<p:inputMask size="20" mask="999.999.999-99"
-				value="#{autenticacaoBean.admin.cpf}">
-			</p:inputMask>
+			<p:outputLabel value="Login: " />
+			<p:inputText size="20"
+				value="#{autenticacaoBean.usuario.login}">
+			</p:inputText>
 
 			<p:outputLabel value="Senha: " />
 			<p:password maxlength="8" size="20"
-				value="#{autenticacaoBean.admin.senha}">
+				value="#{autenticacaoBean.usuario.senha}">
 			</p:password>
 		</h:panelGrid>
 
 		<h:panelGrid columns="3">
-			<p:commandButton value="Entrar" />
+			<p:commandButton value="Entrar" actionListener="#{autenticacaoBean.entrar()}" />
 		</h:panelGrid>
 	</h:form>
 

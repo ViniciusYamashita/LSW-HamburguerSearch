@@ -27,6 +27,11 @@
 
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
+        
+ 		<!-- auto comite -->
+<!-- 		<property name="connection.autocommit">true</property> -->
+
+<!-- 		<property name="hibernate.default_schema">teste</property> -->
 
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>

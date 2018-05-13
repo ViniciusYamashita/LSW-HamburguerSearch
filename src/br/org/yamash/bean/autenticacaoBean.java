@@ -3,23 +3,50 @@ package br.org.yamash.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import br.org.yamash.dao.AdministradorDAO;
+import br.org.yamash.dao.ClientesDAO;
+import br.org.yamash.dao.EmpresaDAO;
 import br.org.yamash.domain.Administrador;
+import br.org.yamash.domain.Clientes;
+import br.org.yamash.domain.Empresa;
+import br.org.yamash.domain.Usuario;
+import br.org.yamash.until.facesUntil;
 
 @ManagedBean
 @SessionScoped
 public class autenticacaoBean {
 	
-	private Administrador admin;
-	
-	public Administrador getAdmin() {
-		if (admin == null) {
-			admin = new Administrador();
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		if (usuario == null) {
+			usuario = new Usuario();
 		}
-		return admin;
+		return usuario;
 	}
-	
-	public void setAdmin(Administrador admin) {
-		this.admin = admin;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void entrar() {
+		try {
+			AdministradorDAO adminD = new AdministradorDAO();
+			EmpresaDAO empD = new EmpresaDAO();
+			ClientesDAO cliD = new ClientesDAO();
+
+			if (adminD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+				facesUntil.adicionarMsgInfo("Administrador logado com sucesso");
+			} else if (empD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+				facesUntil.adicionarMsgInfo("Empresa logado com sucesso");
+			} else if (cliD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+				facesUntil.adicionarMsgInfo("Cliente logado com sucesso");
+			} else {
+				facesUntil.adicionarMsgErro("Login ou Senha inválidos.");
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Erro ao tentar autenticar no sistema:" + ex.getMessage());
+		}
 	}
 
 }
