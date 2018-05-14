@@ -24,8 +24,9 @@ public class Administrador {
 	@Column(name="nomeCompleto", length=120, nullable=false)
 	private String nomeCompleto;
 	 
-	@NotEmpty(message="O campo 'Data de Nascimento' é obrigatório.")
+	@NotNull(message="O campo 'Data de Nascimento' é obrigatório.")
 	@Column(name="dtNascimento", columnDefinition="DATE", nullable=false)
+	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
 	
 	@CPF(message="O campo 'CPF' é obrigatório, ou invalido.")
@@ -66,8 +67,8 @@ public class Administrador {
 		return dtNascimento;
 	}
 
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
+	public void setDtNascimento(Date date){
+		this.dtNascimento = date;
 	}
 
 	public String getCpf() {

@@ -9,9 +9,6 @@
 	<title>Administradores</title>
 </h:head>
 <h:body>
-	<!-- 	<p:growl id="message" /> -->
-
-
 	<!-- 	Estabelecer area de formulario -->
 	<h:form>
 		<p:panel header="Listagem Administradores">
@@ -23,55 +20,50 @@
 				var="cursor">
 				<!-- 			Alterar a propriedade do footer , adicionar o botao-->
 				<f:facet name="footer">
-					<p:commandButton value="Novo" icon="ui-icon-plus"
+					<p:commandButton value="Novo"
 						oncomplete="PF('dlgAdministrador').show();" />
 				</f:facet>
-				<!-- 				<p:column headerText="Código"> -->
-				<!-- 					<h:outputText value="#{cursor.codAdmin}" /> -->
-				<!-- 				</p:column> -->
+<!-- 				<p:column headerText="Código"> -->
+<!-- 					<h:outputText value="#{cursor.codAdmin}" /> -->
+<!-- 				</p:column> -->
 				<p:column headerText="Nome Completo">
 					<h:outputText value="#{cursor.nomeCompleto}" />
 				</p:column>
 				<p:column headerText="Data de nascimento">
 					<h:outputText value="#{cursor.dtNascimento}" />
 				</p:column>
-				<!-- 				<p:column headerText="Data de nascimento"> -->
-				<!-- 					<h:outputText value="#{cursor.dtNascimento}" /> -->
-				<!-- 				</p:column> -->
+<!-- 				<p:column headerText="Data de nascimento"> -->
+<!-- 					<h:outputText value="#{cursor.dtNascimento}" /> -->
+<!-- 				</p:column> -->
 				<p:column headerText="CPF">
-					<h:outputText value="#{cursor.cpf}" />
+					<h:outputText value="#{cursor.cpf}"/>
 				</p:column>
 				<p:column headerText="E-mail">
 					<h:outputText value="#{cursor.email}" />
 				</p:column>
-				<!-- 				<p:column headerText="Senha"> -->
-				<!-- 					<h:outputText value="#{cursor.senha}" /> -->
-				<!-- 				</p:column> -->
+<!-- 				<p:column headerText="Senha"> -->
+<!-- 					<h:outputText value="#{cursor.senha}" /> -->
+<!-- 				</p:column> -->
 				<p:column headerText="Telefone">
 					<h:outputText value="#{cursor.telefone}" />
 				</p:column>
-				<p:column headerText="Ações">
-					<p:commandButton icon="ui-icon-pencil" actionListener="#" />
-				</p:column>
+
 
 			</p:dataTable>
 		</p:panel>
 		<!-- 		Criar uma area de dialogo, componente dialog -->
 		<!-- 		widgetvar é identificação do componente dialo	go -->
-		<p:dialog header="Cadastro Administrador"
-			widgetVar="dlgAdministrador" draggable="false" resizable="false"
-			modal="true" closable="false">
+		<p:dialog header="Cadastro Administrador" widgetVar="dlgAdministrador"
+			draggable="false" resizable="false" modal="true" closable="false">
 			<h:form>
-				<p:messages id="messages" closable="true" />
+			<p:messages id="messages" closable="true" />
 				<h:panelGrid id="panelSave">
 					<p:outputLabel value="Nome Completo : *" />
 					<p:inputText size="50" maxlength="50"
 						value="#{administradorBean.administrador.nomeCompleto}" />
-					<p:outputLabel for="effect" value="Data de Nascimento:" />
-					<p:calendar id="effect"
-						maxdate="#{administradorBean.carregarData()}"
-						value="#{administradorBean.administrador.dtNascimento}"
-						pattern="dd/MM/yyyy" effect="fold" />
+					<p:outputLabel for="mask" value="Data de nascimento:" />
+					<p:calendar id="mask" pattern="dd/mm/yyyy" mask="true" maxdate="#{administradorBean.carregarData()}"
+						value="#{administradorBean.administrador.dtNascimento}" />
 					<p:outputLabel value="CPF: *" />
 					<p:inputMask size="50" maxlength="50"
 						value="#{administradorBean.administrador.cpf}"
@@ -79,9 +71,9 @@
 					<p:outputLabel value="E-mail: *" />
 					<p:inputText size="50" maxlength="50"
 						value="#{administradorBean.administrador.email}" />
-					<!-- 					<p:outputLabel value="Senha: " /> -->
-					<!-- 					<p:inputText size="50" maxlength="50" -->
-					<!-- 						value="#{administradorBean.administrador.senha}" /> -->
+<!-- 					<p:outputLabel value="Senha: " /> -->
+<!-- 					<p:inputText size="50" maxlength="50" -->
+<!-- 						value="#{administradorBean.administrador.senha}" /> -->
 					<p:outputLabel value="Telefone: " />
 					<p:inputMask size="50" maxlength="15" mask="(99) 99999-9999"
 						value="#{administradorBean.administrador.telefone}" />
@@ -89,16 +81,14 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{administradorBean.salvar()}"
+						actionListener="#{administradorBean.teste()}"
 						update="messages panelSave" />
 					<p:commandButton value="Fechar"
-						oncomplete="PF('dlgAdministrador').hide(); #{administradorBean.administradores}"
-						immediate="true" process="@this" ajax="false">
-						<p:resetInput target="panelSave" />
-					</p:commandButton>
+						oncomplete="PF('dlgAdministrador').hide();"/>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
+
 
 	</h:form>
 </h:body>
