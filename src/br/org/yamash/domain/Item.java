@@ -24,8 +24,8 @@ public class Item {
 	private String descricao;
 	 
 	@NotEmpty(message="O campo 'Preço' é obrigatório.")
-	@Column(name="preco", nullable=false)
-	private float preco;
+	@Column(name="preco", length=6, nullable=false)
+	private String preco;
 	 
 	@NotEmpty(message="É necessario o upload de uma imagem do produto")
 	@Column(name="foto", length=255, nullable=false)
@@ -65,11 +65,11 @@ public class Item {
 		this.descricao = descricao;
 	}
 
-	public float getPreco() {
+	public String getPreco() {
 		return preco;
 	}
 
-	public void setPreco(float preco) {
+	public void setPreco(String preco) {
 		this.preco = preco;
 	}
 

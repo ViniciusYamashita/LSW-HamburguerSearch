@@ -58,9 +58,9 @@
 		</p:panel>
 		<!-- 		Criar uma area de dialogo, componente dialog -->
 		<!-- 		widgetvar é identificação do componente dialo	go -->
-		<p:dialog header="Cadastro Administrador"
-			widgetVar="dlgAdministrador" draggable="false" resizable="false"
-			modal="true" closable="false">
+		<!-- 		Salvar -->
+		<p:dialog header="Cadastro Administrador" widgetVar="dlgAdministrador"
+			draggable="false" resizable="false" modal="true" closable="false">
 			<h:form>
 				<p:messages id="messages" closable="true" />
 				<h:panelGrid id="panelSave">
@@ -95,6 +95,49 @@
 						oncomplete="PF('dlgAdministrador').hide(); #{administradorBean.administradores}"
 						immediate="true" process="@this" ajax="false">
 						<p:resetInput target="panelSave" />
+					</p:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<!-- 		Alterar -->
+		<p:dialog header="Cadastro Administrador"
+			widgetVar="dlgAdministradorAlterar" draggable="false"
+			resizable="false" modal="true" closable="false">
+			<h:form>
+				<p:messages id="messages" closable="true" />
+				<h:panelGrid id="panelAlter">
+					<p:outputLabel value="Nome Completo : *" />
+					<p:inputText size="50" maxlength="50"
+						value="#{administradorBean.administrador.nomeCompleto}" />
+					<p:outputLabel for="effect" value="Data de Nascimento:" />
+					<p:calendar id="effect"
+						maxdate="#{administradorBean.carregarData()}"
+						value="#{administradorBean.administrador.dtNascimento}"
+						pattern="dd/MM/yyyy" effect="fold" />
+					<p:outputLabel value="CPF: *" />
+					<p:inputMask size="50" maxlength="50"
+						value="#{administradorBean.administrador.cpf}"
+						mask="999.999.999-99" />
+					<p:outputLabel value="E-mail: *" />
+					<p:inputText size="50" maxlength="50"
+						value="#{administradorBean.administrador.email}" />
+					<p:outputLabel value="Alterar Senha: " />
+					<p:inputText size="50" maxlength="16" placeholder="(Inalterado)"
+						value="#{administradorBean.administrador.senha}" />
+					<p:outputLabel value="Telefone: " />
+					<p:inputMask size="50" maxlength="15" mask="(99) 99999-9999"
+						value="#{administradorBean.administrador.telefone}" />
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Gravar"
+						actionListener="#{administradorBean}"
+						update="messages panelAlter" />
+					<p:commandButton value="Fechar"
+						oncomplete="PF('dlgAdministradorAlterar').hide(); #{administradorBean.administradores}"
+						immediate="true" process="@this" ajax="false">
+						<p:resetInput target="panelAlter" />
 					</p:commandButton>
 				</h:panelGrid>
 			</h:form>

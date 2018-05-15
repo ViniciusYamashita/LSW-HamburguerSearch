@@ -1,6 +1,9 @@
 package br.org.yamash.domain;
 
+import java.util.Date;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -18,7 +21,7 @@ public class Empresa {
 	private long codEmpresa;
 	 
 	@CNPJ(message="O campo 'CNPJ' é obirgatório, ou inválido.")
-	@Column(name="cnpj", length=14, nullable=false)
+	@Column(name="cnpj", length=18, nullable=false)
 	private String cnpj;
 	 
 	@NotEmpty(message="O campo 'Nome da Empresa' é obirgatório, ou inválido.")
@@ -27,10 +30,10 @@ public class Empresa {
 	
 	@NotEmpty(message="O campo 'Razão social/Fantasia' é obirgatório, ou inválido.")
 	@Column(name="razaoSocialFantasia", length=255, nullable=false)
-	private String razaoSociaFantasia;
+	private String razaoSocialFantasia;
 	 
 	@NotEmpty(message="O campo 'CEP' é obirgatório, ou inválido.")
-	@Column(name="cep", length=8, nullable=false)
+	@Column(name="cep", length=9, nullable=false)
 	private String cep;
 	 
 	@NotEmpty(message="O campo 'Logradouro' é obirgatório, ou inválido.")
@@ -57,28 +60,28 @@ public class Empresa {
 	@Column(name="senha", length=16, nullable=false)
 	private String senha;
 	 
-	@Column(name="telefone", length=11)
+	@Column(name="telefone", length=15)
 	private String telefone;
 	 
 	@Column(name="nomeProprietario", length=120)
 	private String nomeProprietario;
 	 
-	@NotEmpty(message="O campo 'Horario de Abertura' é obirgatório, ou inválido.")
+	@NotNull(message="O campo 'Horario de Abertura' é obirgatório, ou inválido.")
 	@Column(name="horarioAbertura", length=8, nullable=false)
-	private String horarioAbertura;
+	private Date horarioAbertura;
 	 
-	@NotEmpty(message="O campo 'Horario de Fechamento' é obirgatório, ou inválido.")
+	@NotNull(message="O campo 'Horario de Fechamento' é obirgatório, ou inválido.")
 	@Column(name="horarioFechamento", length=8, nullable=false)
-	private String horarioFechamento;
+	@Temporal(TemporalType.TIME)
+	private Date horarioFechamento;
 	 
-	@NotEmpty(message="O campo 'Dias Abertos' é obirgatório, ou inválido.")
-	@Column(name="diasAberto", length=60, nullable=false)
-	private String diasAberto;
+	@NotNull(message="O campo 'Dias Abertos' é obirgatório, ou inválido.")
+	@Column(name="diasAberto", nullable=false)
+	private int diasAberto;
 	 
 	@Column(name="statusEmpresa", nullable=false)
 	private int statusEmpresa;
 
-	
 	
 	public long getCodEmpresa() {
 		return codEmpresa;
@@ -104,12 +107,12 @@ public class Empresa {
 		this.nome = nome;
 	}
 
-	public String getRazaoSociaFantasia() {
-		return razaoSociaFantasia;
+	public String getRazaoSocialFantasia() {
+		return razaoSocialFantasia;
 	}
 
-	public void setRazaoSociaFantasia(String razaoSociaFantasia) {
-		this.razaoSociaFantasia = razaoSociaFantasia;
+	public void setRazaoSocialFantasia(String razaoSocialFantasia) {
+		this.razaoSocialFantasia = razaoSocialFantasia;
 	}
 
 	public String getCep() {
@@ -136,11 +139,11 @@ public class Empresa {
 		this.bairro = bairro;
 	}
 
-	public String getNumeroEstab() {
+	public String getNumeroLocal() {
 		return numeroLocal;
 	}
 
-	public void setNumeroEstab(String numeroLocal) {
+	public void setNumeroLocal(String numeroLocal) {
 		this.numeroLocal = numeroLocal;
 	}
 
@@ -184,27 +187,27 @@ public class Empresa {
 		this.nomeProprietario = nomeProprietario;
 	}
 
-	public String getHorarioAbertura() {
+	public Date getHorarioAbertura() {
 		return horarioAbertura;
 	}
 
-	public void setHorarioAbertura(String horarioAbertura) {
+	public void setHorarioAbertura(Date horarioAbertura) {
 		this.horarioAbertura = horarioAbertura;
 	}
 
-	public String getHorarioFechamento() {
+	public Date getHorarioFechamento() {
 		return horarioFechamento;
 	}
 
-	public void setHorarioFechamento(String horarioFechamento) {
+	public void setHorarioFechamento(Date horarioFechamento) {
 		this.horarioFechamento = horarioFechamento;
 	}
 
-	public String getDiasAberto() {
+	public int getDiasAberto() {
 		return diasAberto;
 	}
 
-	public void setDiasAberto(String diasAberto) {
+	public void setDiasAberto(int diasAberto) {
 		this.diasAberto = diasAberto;
 	}
 
