@@ -59,13 +59,15 @@
 					<p:outputLabel value="Preço: *" />
 					<h:panelGrid columns="2">
 						<p:outputLabel value="R$ " />
-						<p:inputNumber value="#{itemBean.item.preco}" decimalSeparator=","  maxlength="6"/>
+						<p:inputNumber value="#{itemBean.item.preco}" decimalSeparator=","
+							maxlength="6" />
 					</h:panelGrid>
 					<p:outputLabel value="Empresa: *" />
-					<p:selectOneMenu id="empresa" value="#{empresasBean.empresas}"
-						var="emps" style="width:125px">
-						<f:selectItem itemLabel="Selecione" />
-						<f:selectItem itemValue="#{emps.codEmpresa - emps.nome}" />
+					<p:selectOneMenu id="empresa" value="#{itemBean.item.codEmpresa}"
+						style="width:125px">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItem itemLabel="#{itemBean.nome}"
+							itemValue="#{itemBean.codEmpresa}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="Situação do Item" />
 					<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
@@ -80,7 +82,8 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{itemBean.salvar()}" update="messages panelSave" />
-					<p:commandButton value="Fechar" oncomplete="PF('dlgItem').hide();" update="panelSave">
+					<p:commandButton value="Fechar" oncomplete="PF('dlgItem').hide();"
+						update="panelSave">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
 				</h:panelGrid>

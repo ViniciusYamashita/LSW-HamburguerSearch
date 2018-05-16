@@ -6,7 +6,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.org.yamash.dao.EmpresaDAO;
 import br.org.yamash.dao.ItemDAO;
+import br.org.yamash.domain.Empresa;
 import br.org.yamash.domain.Item;
 import br.org.yamash.until.facesUntil;
 
@@ -16,6 +18,16 @@ public class ItemBean {
 
 	private Item item = new Item();
 	private List<Item> itens;
+	private List<Empresa> empresas;
+	
+	public void listarEmpresas() {
+		try {
+			EmpresaDAO fd = new EmpresaDAO();
+			empresas = fd.Listar();
+		} catch (RuntimeException e) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Itens!");
+		}
+	}
 
 	public Item getItem() {
 		return item;
@@ -33,8 +45,16 @@ public class ItemBean {
 		this.itens = itens;
 	}
 
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
+
 	@PostConstruct
-	public void listarFabricantes() {
+	public void listarItens() {
 		try {
 			ItemDAO fd = new ItemDAO();
 			itens = fd.Listar();

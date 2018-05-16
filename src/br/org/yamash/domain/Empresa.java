@@ -67,11 +67,12 @@ public class Empresa {
 	private String nomeProprietario;
 	 
 	@NotNull(message="O campo 'Horario de Abertura' é obirgatório, ou inválido.")
-	@Column(name="horarioAbertura", length=8, nullable=false)
+	@Column(name="horarioAbertura", columnDefinition="TIME", nullable=false)
+	@Temporal(TemporalType.TIME)
 	private Date horarioAbertura;
 	 
 	@NotNull(message="O campo 'Horario de Fechamento' é obirgatório, ou inválido.")
-	@Column(name="horarioFechamento", length=8, nullable=false)
+	@Column(name="horarioFechamento", columnDefinition="TIME", nullable=false)
 	@Temporal(TemporalType.TIME)
 	private Date horarioFechamento;
 	 

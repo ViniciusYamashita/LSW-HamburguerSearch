@@ -10,9 +10,9 @@
 	<title>Empresas</title>
 </h:head>
 
-<h:body>
+<h:body style="overflow: auto;">
 	<!-- 	<p:growl id="message" /> -->
-
+	<p:messages id="messagePrincipal" closable="true" />
 
 	<!-- 	Estabelecer area de formulario -->
 	<h:form id="formp">
@@ -87,14 +87,15 @@
 
 				<p:messages id="messages" closable="true" />
 				<p:panel id="panelCentral">
-					<h:panelGrid id="panelSave" cellpadding="5">
-						<h:outputLabel value="Informações da Empresa" />
+					<h:outputLabel value="Informações da Empresa" />
+					<hr />
+					<h:panelGrid id="panelSave" cellpadding="5" columns="2">
 						<p:outputLabel value="Nome da Empresa : *" />
-						<p:inputText size="50" maxlength="50"
+						<p:inputText size="62" maxlength="50" id="nome"
 							value="#{empresaBean.empresa.nome}" />
 
 						<p:outputLabel value="Razão Social/Fantasia: *" />
-						<p:inputText size="50" maxlength="50"
+						<p:inputText size="62" maxlength="50"
 							value="#{empresaBean.empresa.razaoSocialFantasia}" />
 
 						<p:outputLabel value="CNPJ: *" />
@@ -103,13 +104,14 @@
 					</h:panelGrid>
 
 					<h:outputLabel value="Endereço" />
+					<hr />
 					<h:panelGrid id="panelSave1" columns="4" cellpadding="5">
 						<p:outputLabel value="CEP: *" />
 						<p:inputMask size="15" maxlength="9"
 							value="#{empresaBean.empresa.cep}" mask="99999-999" />
 
 						<p:outputLabel value="Bairro: *" />
-						<p:inputText size="25" maxlength="50"
+						<p:inputText size="20" maxlength="50"
 							value="#{empresaBean.empresa.bairro}" />
 
 						<p:outputLabel value="Logradouro: * " />
@@ -121,10 +123,11 @@
 							value="#{empresaBean.empresa.numeroLocal}" />
 					</h:panelGrid>
 
-					<h:panelGrid cellpadding="5">
-						<h:outputLabel value="Informações de contato" />
+					<h:outputLabel value="Informações de contato" />
+					<hr />
+					<h:panelGrid cellpadding="5" columns="2">
 						<p:outputLabel value="E-mail: * " />
-						<p:inputMask size="50" maxlength="50"
+						<p:inputMask size="62" maxlength="50"
 							value="#{empresaBean.empresa.email}" />
 
 						<p:outputLabel value="Nome do Proprietário: *" />
@@ -137,16 +140,16 @@
 					</h:panelGrid>
 
 					<h:panelGrid columns="4" cellpadding="5">
-						<p:outputLabel for="timeAbertura" value="Horário de Abertura: " />
+						<p:outputLabel for="timeAbertura" value="Horário de Abertura: *" />
 						<p:calendar id="timeAbertura"
 							value="#{empresaBean.empresa.horarioAbertura}" pattern="HH:mm"
 							mask="true" timeOnly="true" />
 
 						<p:outputLabel for="timeFechamento"
-							value="Horário de Fechamento: " />
-						<p:calendar id="timeFechamento" 
+							value="Horário de Fechamento: *" />
+						<p:calendar id="timeFechamento"
 							value="#{empresaBean.empresa.horarioFechamento}" pattern="HH:mm"
-							mask="true" timeOnly="true"  />
+							mask="true" timeOnly="true" />
 
 					</h:panelGrid>
 
@@ -163,10 +166,19 @@
 					<!-- 					</p:selectManyCheckbox> -->
 					<!-- 				</h:panelGrid> -->
 				</p:panel>
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="3">
 					<p:commandButton value="Salvar"
 						actionListener="#{empresaBean.salvar()}"
-						update="messages panelCentral" />
+						update="messages panelCentral">
+						<p:confirm header="Confirmar Operação?"
+							message="Deseja incluir a empresa?" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
 
 					<p:commandButton value="Fechar"
 						oncomplete="PF('dlgEmpresa').hide();">
