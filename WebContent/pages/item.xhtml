@@ -51,11 +51,13 @@
 				<h:panelGrid id="panelSave">
 					<p:outputLabel value="Nome do Produto: *" />
 					<p:inputText size="50" maxlength="80" value="#{itemBean.item.nome}" />
+					
 					<p:outputLabel value="Descrição: *" />
 					<p:inputTextarea rows="5" cols="50" counter="display"
 						maxlength="500" counterTemplate="{0} caracteres restante."
 						autoResize="false" value="#{itemBean.item.descricao}" />
 					<h:outputText id="display" />
+					
 					<p:outputLabel value="Preço: *" />
 					<h:panelGrid columns="2">
 						<p:outputLabel value="R$ " />

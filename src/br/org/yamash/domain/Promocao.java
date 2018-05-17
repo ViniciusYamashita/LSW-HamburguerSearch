@@ -3,6 +3,7 @@ package br.org.yamash.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -15,23 +16,23 @@ public class Promocao {
 	@Column(name="codPromocao")
 	private long codPromocao;
 	 
-	@NotEmpty(message="O campo 'Tipo de Promoção' é obrigatório.")
+	@NotNull(message="O campo 'Tipo de Promoção' é obrigatório.")
 	@Column(name="tipoPromocao", nullable=false)
 	private int tipoPromocao;
 	 
-	@NotEmpty(message="O campo 'Data início' é obrigatório.")
+	@NotNull(message="O campo 'Data início' é obrigatório.")
 	@Column(name="dtInicio", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtInicio;
 	
-	@NotEmpty(message="O campo 'Data Fim' é obrigatório.")
+	@NotNull(message="O campo 'Data Fim' é obrigatório.")
 	@Column(name="dtFim", columnDefinition="DATE", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date dtFim;
 	 
 	@NotEmpty(message="O campo 'Valor da promoção' é obrigatório.")
-	@Column(name="valorPromcao", nullable=false)
-	private float valorPromocao;
+	@Column(name="valorPromcao", length=6, nullable=false)
+	private String valorPromocao;
 
 	
 	
@@ -67,11 +68,11 @@ public class Promocao {
 		this.dtFim = dtFim;
 	}
 
-	public float getValorPromocao() {
+	public String getValorPromocao() {
 		return valorPromocao;
 	}
 
-	public void setValorPromocao(float valorPromocao) {
+	public void setValorPromocao(String valorPromocao) {
 		this.valorPromocao = valorPromocao;
 	}
 	 
