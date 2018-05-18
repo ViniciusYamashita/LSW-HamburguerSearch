@@ -1,6 +1,7 @@
 package br.org.yamash.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,7 +13,7 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="codItem")
-	private int codItem;
+	private Long codItem;
 	 
 	@NotEmpty(message="O campo 'Nome do Produto' é obrigatório.")
 	@Column(name="nome", length=80, nullable=false)
@@ -34,18 +35,20 @@ public class Item {
 	@Column(name="statusItem", nullable=false)
 	private int statusItem;
 	 
+	@NotNull(message="O campo 'Situação do Item' é obrigatório.")
 	@Column(name="situacaoItem", nullable=false)
 	private boolean situacaoItem;
 	 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull(message="O campo 'Empresa' é obrigatório.")
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codEmpresa", referencedColumnName="codEmpresa")
 	private Empresa codEmpresa;
 
-	public int getCodItem() {
+	public Long getCodItem() {
 		return codItem;
 	}
 
-	public void setCodItem(int codItem) {
+	public void setCodItem(Long codItem) {
 		this.codItem = codItem;
 	}
 
@@ -104,8 +107,31 @@ public class Item {
 	public void setCodEmpresa(Empresa codEmpresa) {
 		this.codEmpresa = codEmpresa;
 	}
-	
-	
-	 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codItem == null) ? 0 : codItem.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (codItem == null) {
+			if (other.codItem != null)
+				return false;
+		} else if (!codItem.equals(other.codItem))
+			return false;
+		return true;
+	}
+
 }
  

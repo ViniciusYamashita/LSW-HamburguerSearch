@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Item de promoção</title>
+</h:head>
+<h:body>
+	<!-- 	Estabelecer area de formulario -->
+	<h:form>
+		<p:panel header="Listagem dos item na promoção">
+			<!-- 		O data table mostra os dados -->
+			<!-- 		Empty message altera mensagem -->
+			<!-- 		Empty message altera mensagem -->
+			<p:dataTable emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{itemPromocaoBean.itensPromo}" var="itenspromo">
+				<!-- 			Alterar a propriedade do footer , adicionar o botao-->
+				<f:facet name="footer">
+					<p:commandButton value="Novo"
+						oncomplete="PF('dlgItemPromo').show();" />
+				</f:facet>
+				<p:column headerText="Item">
+					<h:outputText value="#{itenspromo.codItem.nome}" />
+				</p:column>
+				<p:column headerText="Promoção">
+					<h:outputText value="#{itenspromo.codPromocao.valorPromocao}" />
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+		<!-- 		Criar uma area de dialogo, componente dialog -->
+		<!-- 		widgetvar é identificação do componente dialo	go -->
+		<p:dialog header="Adicionar itens a promoção" widgetVar="dlgItemPromo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form>
+				<p:messages id="messages" closable="true" />
+				<h:panelGrid id="panelSave">
+					<p:outputLabel value="Item:" />
+					<p:selectOneMenu id="item" value="#{itemPromocaoBean.itemPromo.codItem}"
+						style="width:125px" converter="itemConverter" >
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{itemPromocaoBean.itens}" var="item"
+							itemLabel="#{item.nome}" itemValue="#{item}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Promoção: *" />
+					<p:selectOneMenu id="promocao" value="#{itemPromocaoBean.itemPromo.codPromocao}"
+						style="width:125px" converter="promocaoConverter" >
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{itemPromocaoBean.promocoes}" var="promo"
+							itemLabel="#{promo.valorPromocao}" itemValue="#{promo}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{itemPromocaoBean.salvar()}" update="messages panelSave" />
+					<p:commandButton value="Fechar" oncomplete="PF('dlgItemPromo').hide();"
+						update="panelSave">
+						<p:resetInput target="panelSave" />
+					</p:commandButton>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

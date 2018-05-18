@@ -3,6 +3,7 @@ package br.org.yamash.domain;
 import java.util.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,15 +17,17 @@ public class Feedback {
 	@Column(name="codFeedback")
 	private long codFeedback;
 	 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull(message="O campo 'Empresa' é obrigatório.")
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codEmpresas", referencedColumnName="codEmpresa")
 	private Empresa codEmpresa;
 	 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codItem", referencedColumnName="codItem")
 	private Item codItem;
 	 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull(message="O campo 'Cliente' é obrigatório.")
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="codCliente", referencedColumnName="codCliente")
 	private Clientes codCliente;
 	 
@@ -32,9 +35,9 @@ public class Feedback {
 	@Temporal(TemporalType.DATE)
 	private Date dtFeedback;
 	
-	@NotEmpty(message="A 'Média' é obrigatória para o Feedback.")
+	@NotNull(message="A 'Média' é obrigatória para o Feedback.")
 	@Column(name="valorMedia", nullable=false)
-	private float valorMedia;
+	private Integer valorMedia;
 	 
 	@NotEmpty(message="Para realizar o Feedback não se esqueça de preencher o campo 'Comentario'.")
 	@Size(min=3, message="Para que a empresa possa melhorar os comentarios devem ter no minimo 3 caracteres, ou seja apenas uma palavra.")
@@ -81,11 +84,11 @@ public class Feedback {
 		this.dtFeedback = dtFeedback;
 	}
 
-	public float getValorMedia() {
+	public Integer getValorMedia() {
 		return valorMedia;
 	}
 
-	public void setValorMedia(float valorMedia) {
+	public void setValorMedia(Integer valorMedia) {
 		this.valorMedia = valorMedia;
 	}
 
@@ -96,8 +99,28 @@ public class Feedback {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (codFeedback ^ (codFeedback >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Feedback other = (Feedback) obj;
+		if (codFeedback != other.codFeedback)
+			return false;
+		return true;
+	}
 	 	 
 }
  

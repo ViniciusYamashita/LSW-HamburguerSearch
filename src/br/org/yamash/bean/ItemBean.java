@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
 import br.org.yamash.dao.EmpresaDAO;
 import br.org.yamash.dao.ItemDAO;
@@ -58,6 +58,9 @@ public class ItemBean {
 		try {
 			ItemDAO fd = new ItemDAO();
 			itens = fd.Listar();
+			
+			EmpresaDAO fd1 = new EmpresaDAO();
+			empresas = fd1.Listar();
 		} catch (RuntimeException e) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Itens!");
 		}

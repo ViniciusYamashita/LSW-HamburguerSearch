@@ -58,7 +58,7 @@ public class AdministradorBean {
 		this.administrador = administrador;
 	}
 	@PostConstruct
-	public void listarFabricantes() {
+	public void listarAdministrador() {
 		try {
 			AdministradorDAO fd = new AdministradorDAO();
 			administradores = fd.Listar();
