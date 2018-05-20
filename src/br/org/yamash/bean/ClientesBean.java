@@ -32,7 +32,7 @@ public class ClientesBean {
 	}
 	
 	@PostConstruct
-	public void ListarClientes() {
+	public void listarClientes() {
 		try {
 			ClientesDAO cd = new ClientesDAO();
 			clientes = cd.Listar();

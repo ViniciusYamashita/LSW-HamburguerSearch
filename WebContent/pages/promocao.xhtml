@@ -1,52 +1,19 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cadastro de Promoção</title>
-</h:head>
-<h:body>
-	<!-- 	Estabelecer area de formulario -->
-	<h:form>
-		<p:panel header="Listagem de Promoções">
-			<!-- 		O data table mostra os dados -->
-			<!-- 		Empty message altera mensagem -->
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{promocaoBean.promocoes}" var="promo">
-				<!-- 			Alterar a propriedade do footer , adicionar o botao-->
-				<f:facet name="footer">
-					<p:commandButton value="Novo"
-						oncomplete="PF('dlgCadPromo').show();" />
-				</f:facet>
-				<p:column headerText="Código">
-					<h:outputText value="#{promo.codPromocao}" />
-				</p:column>
-				<p:column headerText="Tipo da Promoção">
-					<h:outputText value="#{promo.tipoPromocao}" />
-				</p:column>
-				<p:column headerText="Data de Início">
-					<h:outputText value="#{promo.dtInicio}" converter="javax.faces.DateTime" />
-				</p:column>
-				<p:column headerText="Data Fim">
-					<h:outputText value="#{promo.dtFim}" converter="javax.faces.DateTime" />
-				</p:column>
-				<p:column headerText="Valor">
-					<h:outputText value="#{promo.valorPromocao}" />
-				</p:column>
-			</p:dataTable>
-		</p:panel>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
 
-		<!-- 		Criar uma area de dialogo, componente dialog -->
-		<!-- 		widgetvar é identificação do componente dialo	go -->
-		<p:dialog header="Cadastro de Promoção" widgetVar="dlgCadPromo"
-			draggable="false" resizable="false" modal="true" closable="false">
-			<h:form>
-				<p:messages id="messages" closable="true" />
-				<h:panelGrid id="panelSave">
-					<p:outputLabel value="Tipo da Promoção: *" />
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:messages id="messages" closable="true" />
+			<p:panel header="Cadastrar PromoÃ§Ãµes" id="panelSave">
+				<h:panelGrid>
+					<p:outputLabel value="Tipo da PromoÃ§Ã£o: *" />
 					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 						<p:selectOneRadio id="console"
 							value="#{promocaoBean.promocao.tipoPromocao}">
@@ -55,35 +22,58 @@
 						</p:selectOneRadio>
 					</h:panelGrid>
 
-					<p:outputLabel for="dtinicio" value="Data de Início:" />
+					<p:outputLabel for="dtinicio" value="Data de InÃ­cio:" />
 					<p:calendar id="dtinicio" value="#{promocaoBean.promocao.dtInicio}"
-						pattern="dd/MM/yyyy" navigator="true"/>
+						pattern="dd/MM/yyyy" navigator="true" />
 
 					<p:outputLabel for="dtfim" value="Data Fim:" />
 					<p:calendar id="dtfim" value="#{promocaoBean.promocao.dtFim}"
 						pattern="dd/MM/yyyy" navigator="true" />
 
-					<p:outputLabel value="Preço: *" />
+					<p:outputLabel value="PreÃ§o: *" />
 					<h:panelGrid columns="2">
 						<p:outputLabel value="R$ " />
 						<p:inputNumber value="#{promocaoBean.promocao.valorPromocao}"
-							decimalSeparator="," maxlength="6" size="10"/>
+							decimalSeparator="," maxlength="6" size="10" />
 					</h:panelGrid>
 
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{promocaoBean.salvar()}"
-						update="messages panelSave" />
-					<p:commandButton value="Fechar"
-						oncomplete="PF('dlgCadPromo').hide();" update="panelSave">
+						update="messages panelSave panelGrid"
+						oncomplete="#{promocaoBean.listarPromocoes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
-
 				</h:panelGrid>
-			</h:form>
-		</p:dialog>
+			</p:panel>
 
-	</h:form>
-</h:body>
-</html>
+			<p:panel header="Listagem de PromoÃ§Ãµes" id="panelGrid">
+				<!-- 		O data table mostra os dados -->
+				<!-- 		Empty message altera mensagem -->
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+					paginator="true" rows="5" value="#{promocaoBean.promocoes}"
+					var="promo">
+
+					<p:column headerText="CÃ³digo">
+						<h:outputText value="#{promo.codPromocao}" />
+					</p:column>
+					<p:column headerText="Tipo da PromoÃ§Ã£o">
+						<h:outputText value="#{promo.tipoPromocao}" />
+					</p:column>
+					<p:column headerText="Data de InÃ­cio">
+						<h:outputText value="#{promo.dtInicio}"
+							converter="javax.faces.DateTime" />
+					</p:column>
+					<p:column headerText="Data Fim">
+						<h:outputText value="#{promo.dtFim}"
+							converter="javax.faces.DateTime" />
+					</p:column>
+					<p:column headerText="Valor">
+						<h:outputText value="#{promo.valorPromocao}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

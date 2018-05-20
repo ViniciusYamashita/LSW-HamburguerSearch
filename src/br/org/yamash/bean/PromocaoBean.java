@@ -48,7 +48,7 @@ public class PromocaoBean {
 	}
 	
 	@PostConstruct
-	public void ListarClientes() {
+	public void listarPromocoes() {
 		try {
 			PromocaoDAO pd = new PromocaoDAO();
 			promocoes = pd.Listar();

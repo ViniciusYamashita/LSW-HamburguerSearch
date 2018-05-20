@@ -1,52 +1,20 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cadastro de Cliente</title>
-</h:head>
-<h:body>
-	<!-- 	Estabelecer area de formulario -->
-	<h:form>
-		<p:panel header="Listagem dos Clientes">
-			<!-- 		O data table mostra os dados -->
-			<!-- 		Empty message altera mensagem -->
-			<!-- 		Empty message altera mensagem -->
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{clientesBean.clientes}" var="cliente">
-				<!-- 			Alterar a propriedade do footer , adicionar o botao-->
-				<f:facet name="footer">
-					<p:commandButton value="Novo"
-						oncomplete="PF('dlgCadCliente').show();" />
-				</f:facet>
-				<p:column headerText="Código">
-					<h:outputText value="#{cliente.codCliente}" />
-				</p:column>
-				<p:column headerText="Nome do Cliente">
-					<h:outputText value="#{cliente.nomeCompleto}" />
-				</p:column>
-				<p:column headerText="Apelido">
-					<h:outputText value="#{cliente.apelido}" />
-				</p:column>
-				<p:column headerText="E-mail">
-					<h:outputText value="#{cliente.email}" />
-				</p:column>
-				<p:column headerText="Situação">
-					<h:outputText value="#" />
-				</p:column>
-			</p:dataTable>
-		</p:panel>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
 
-		<!-- 		Criar uma area de dialogo, componente dialog -->
-		<!-- 		widgetvar é identificação do componente dialo	go -->
-		<p:dialog header="Cadastro de Cliente" widgetVar="dlgCadCliente"
-			draggable="false" resizable="false" modal="true" closable="false">
-			<h:form>
-				<p:messages id="messages" closable="true" />
-				<h:panelGrid id="panelSave">
+	<ui:define name="conteudo">
+		<!-- 	Estabelecer area de formulario -->
+
+		<h:form>
+			<p:messages id="messages" closable="true" />
+
+			<p:panel header="Cadastro de Clientes" id="panelSave">
+				<h:panelGrid>
 					<p:outputLabel value="Nome Completo: *" />
 					<p:inputText size="50" maxlength="120"
 						value="#{clientesBean.cliente.nomeCompleto}" />
@@ -66,16 +34,42 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{clientesBean.salvar()}" update="messages panelSave" />
-					<p:commandButton id="system" value="Fechar" oncomplete="PF('dlgCadCliente').hide();"
-						update="panelSave">
+						actionListener="#{clientesBean.salvar()}"
+						update="messages panelSave panelGrid"
+						oncomplete="#{clientesBean.listarClientes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
-					
 				</h:panelGrid>
-			</h:form>
-		</p:dialog>
 
-	</h:form>
-</h:body>
-</html>
+			</p:panel>
+
+			<p:panel header="Listagem dos Clientes" id="panelGrid">
+				<!-- 		O data table mostra os dados -->
+				<!-- 		Empty message altera mensagem -->
+				<!-- 		Empty message altera mensagem -->
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+					paginator="true" rows="5" value="#{clientesBean.clientes}"
+					var="cliente">
+					<!-- 			Alterar a propriedade do footer , adicionar o botao-->
+
+					<p:column headerText="CÃ³digo">
+						<h:outputText value="#{cliente.codCliente}" />
+					</p:column>
+					<p:column headerText="Nome do Cliente">
+						<h:outputText value="#{cliente.nomeCompleto}" />
+					</p:column>
+					<p:column headerText="Apelido">
+						<h:outputText value="#{cliente.apelido}" />
+					</p:column>
+					<p:column headerText="E-mail">
+						<h:outputText value="#{cliente.email}" />
+					</p:column>
+					<p:column headerText="SituaÃ§Ã£o">
+						<h:outputText value="#" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
