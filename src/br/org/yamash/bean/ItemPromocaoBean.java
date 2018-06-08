@@ -68,13 +68,27 @@ public class ItemPromocaoBean {
 	}
 
 	public void salvar() {
-		
-		ItemPromocaoDAO promod = new ItemPromocaoDAO();
-		promod.salvar(itemPromo);
+		try {
+			ItemPromocaoDAO promod = new ItemPromocaoDAO();
+			promod.salvar(itemPromo);
 
-		facesUntil.adicionarMsgInfo("Item salvo com sucesso");
+			facesUntil.adicionarMsgInfo("Item salvo com sucesso");
 
-		itemPromo = new ItemPromocao();
+			itemPromo = new ItemPromocao();
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar o Item da Promoção!. Contate o administrador do sistema!");
+		}	
+	}
+	
+	public void deletar(ItemPromocao itemPromo) {
+		try {
+			ItemPromocaoDAO itemPromoDAO = new ItemPromocaoDAO();
+			itemPromoDAO.deletar(itemPromo);
+
+			facesUntil.adicionarMsgInfo("Item da Promoção excluido com sucesso");
+		}catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao excluir o Item da Promoção!");
+		}
 	}
 	
 }

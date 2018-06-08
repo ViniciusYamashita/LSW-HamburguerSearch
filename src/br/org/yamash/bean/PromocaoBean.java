@@ -58,13 +58,27 @@ public class PromocaoBean {
 	}
 	
 	public void salvar() {
-		
-		PromocaoDAO pd = new PromocaoDAO();
-		pd.salvar(promocao);
-		
-		facesUntil.adicionarMsgInfo("Promoção salva com sucesso");
-		
-		promocao = new Promocao();
+		try {
+			PromocaoDAO pd = new PromocaoDAO();
+			pd.salvar(promocao);
+			
+			facesUntil.adicionarMsgInfo("Promoção salva com sucesso");
+			
+			promocao = new Promocao();
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar promoção. Contate o Administrador do sistema!");
+		}	
+	}
+	
+	public void deletar(Promocao promo) {
+		try {
+			PromocaoDAO promoDAO = new PromocaoDAO();
+			promoDAO.deletar(promo);
+
+			facesUntil.adicionarMsgInfo("Promoção excluida com sucesso");
+		}catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao excluir o Promoção!.");
+		}
 	}
 	
 }

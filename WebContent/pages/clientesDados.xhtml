@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{clientesBean.listarCadastro}"
+				type="preRenderView"></f:event>
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<!-- 	Estabelecer area de formulario -->
+
+		<h:form id="cadastroClientes">
+			<p:messages id="messages" closable="true" />
+
+			<p:panel header="Cadastro de Clientes" id="panelSave">
+				<h:panelGrid>
+					<p:outputLabel value="Nome Completo: *" />
+					<p:inputText size="50" maxlength="120"
+						value="#{clientesBean.cliente.nomeCompleto}" />
+
+					<p:outputLabel value="Apelido: *" />
+					<p:inputText size="50" maxlength="50"
+						value="#{clientesBean.cliente.apelido}" />
+
+					<p:outputLabel value="E-mail: *" />
+					<p:inputText size="50" maxlength="120"
+						value="#{clientesBean.cliente.email}" />
+
+					<p:outputLabel value="Senha: *" />
+					<p:password size="50" maxlength="16"
+						value="#{clientesBean.cliente.senha}" />
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{clientesBean.alterar()}"
+						update="messages"
+						oncomplete="#{clientesBean.listarClientes()}">
+						<p:resetInput target="panelSave" />
+					</p:commandButton>
+					
+					<p:button value="Voltar" outcome="/pages/clientes.xhtml"/>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -75,13 +75,33 @@ public class Empresa {
 	@Column(name="horarioFechamento", columnDefinition="TIME", nullable=false)
 	@Temporal(TemporalType.TIME)
 	private Date horarioFechamento;
-	 
-	@NotNull(message="O campo 'Dias Abertos' é obirgatório, ou inválido.")
-	@Column(name="diasAberto", nullable=false)
-	private int diasAberto;
+
+	@Column(name="segunda", nullable=false)
+	private boolean segunda;
+
+	@Column(name="terca", nullable=false)
+	private boolean terca;
+	
+	@Column(name="quarta", nullable=false)
+	private boolean quarta;
+
+	@Column(name="quinta", nullable=false)
+	private boolean quinta;
+	
+	@Column(name="sexta", nullable=false)
+	private boolean sexta;
+	
+	@Column(name="sabado", nullable=false)
+	private boolean sabado;
+	
+	@Column(name="domingo", nullable=false)
+	private boolean domingo;
+	
+	@Column(name="validado", nullable=false)
+	private boolean validado;
 	 
 	@Column(name="statusEmpresa", nullable=false)
-	private int statusEmpresa;
+	private boolean statusEmpresa;
 
 	
 	public long getCodEmpresa() {
@@ -204,19 +224,75 @@ public class Empresa {
 		this.horarioFechamento = horarioFechamento;
 	}
 
-	public int getDiasAberto() {
-		return diasAberto;
+	public boolean isSegunda() {
+		return segunda;
 	}
 
-	public void setDiasAberto(int diasAberto) {
-		this.diasAberto = diasAberto;
+	public void setSegunda(boolean segunda) {
+		this.segunda = segunda;
 	}
 
-	public int getStatusEmpresa() {
+	public boolean isTerca() {
+		return terca;
+	}
+
+	public void setTerca(boolean terca) {
+		this.terca = terca;
+	}
+
+	public boolean isQuarta() {
+		return quarta;
+	}
+
+	public void setQuarta(boolean quarta) {
+		this.quarta = quarta;
+	}
+
+	public boolean isQuinta() {
+		return quinta;
+	}
+
+	public void setQuinta(boolean quinta) {
+		this.quinta = quinta;
+	}
+
+	public boolean isSexta() {
+		return sexta;
+	}
+
+	public void setSexta(boolean sexta) {
+		this.sexta = sexta;
+	}
+
+	public boolean isSabado() {
+		return sabado;
+	}
+
+	public void setSabado(boolean sabado) {
+		this.sabado = sabado;
+	}
+
+	public boolean isDomingo() {
+		return domingo;
+	}
+
+	public void setDomingo(boolean domingo) {
+		this.domingo = domingo;
+	}
+
+	public boolean isValidado() {
+		return validado;
+	}
+
+	public void setValidado(boolean validado) {
+		this.validado = validado;
+	}
+
+	public boolean isStatusEmpresa() {
 		return statusEmpresa;
 	}
 
-	public void setStatusEmpresa(int statusEmpresa) {
+	public void setStatusEmpresa(boolean statusEmpresa) {
 		this.statusEmpresa = statusEmpresa;
 	}
 

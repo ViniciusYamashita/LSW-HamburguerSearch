@@ -10,9 +10,9 @@
 	<ui:define name="conteudo">
 
 
-		<h:form>
+		<h:form id="cadastrarFeedback">
 			<p:messages id="messages" closable="true" />
-			<p:panel header="Realizar Feedback"  id="panelSave">
+			<p:panel header="Realizar Feedback" id="panelSave">
 
 				<h:panelGrid>
 					<p:outputLabel value="Empresa: *" />
@@ -54,13 +54,15 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{feedbackBean.salvar()}"
-						update="messages panelSave panelGrid"
+						update="messages panelSave listarFeedback:panelGrid"
 						oncomplete="#{feedbackBean.listarFeedbacks()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
+		</h:form>
 
+		<h:form id="listarFeedback">
 			<p:panel header="Listagem dos Feedbacks" id="panelGrid">
 				<!-- 		O data table mostra os dados -->
 				<!-- 		Empty message altera mensagem -->
@@ -68,24 +70,34 @@
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
 					paginator="true" rows="5" value="#{feedbackBean.feedbacks}"
 					var="feedback">
-					
+
 					<p:column headerText="Código">
 						<h:outputText value="#{feedback.codFeedback}" />
 					</p:column>
+
 					<p:column headerText="Empresa">
 						<h:outputText value="#{feedback.codEmpresa.nome}" />
 					</p:column>
+
 					<p:column headerText="Item">
 						<h:outputText value="#{feedback.codItem.nome}" />
 					</p:column>
+
 					<p:column headerText="Cliente">
 						<h:outputText value="#{feedback.codCliente.nomeCompleto}" />
 					</p:column>
+
 					<p:column headerText="Comentario">
 						<h:outputText value="#{feedback.comentario}" />
 					</p:column>
-					<p:column headerText="Situação do Item">
-						<h:outputText value="#{item.situacaoItem}" />
+
+					<p:column headerText="Ações">
+						<p:commandButton icon="ui-icon-edit" />
+						
+						<p:commandButton icon="ui-icon-close"
+							actionListener="#{feedbackBean.deletar(feedback)}"
+							update="cadastrarFeedback:messages"
+							oncomplete="#{feedbackBean.listarFeedbacks()}" />
 					</p:column>
 
 				</p:dataTable>

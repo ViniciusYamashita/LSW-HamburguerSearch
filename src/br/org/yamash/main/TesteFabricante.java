@@ -35,6 +35,9 @@ public class TesteFabricante {
 //		testeListarPorEntidade(admin);
 //		
 		autenticar();
+		
+		admin.setCodAdmin(2l);
+		testeDeletar(admin);
 	}
 	
 	private static void testeSalvar (Administrador admin) {

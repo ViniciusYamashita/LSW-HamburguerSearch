@@ -29,7 +29,8 @@ public class Clientes {
 	private String nomeCompleto;
 	
 	@Column(name="statusCliente", nullable=false)
-	private int statusCliente;
+//	@Type(type="org.hibernate.type.NumericBooleanType")
+	private boolean statusCliente;
 	
 	@Column(name="apelido", length=50, nullable=true)
 	private String apelido;
@@ -58,11 +59,11 @@ public class Clientes {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public int getStatusCliente() {
+	public boolean getStatusCliente() {
 		return statusCliente;
 	}
 
-	public void setStatusCliente(int statusCliente) {
+	public void setStatusCliente(boolean statusCliente) {
 		this.statusCliente = statusCliente;
 	}
 

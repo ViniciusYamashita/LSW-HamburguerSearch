@@ -9,7 +9,7 @@
 
 	<ui:define name="conteudo">
 
-		<h:form>
+		<h:form id="cadastroPromo">
 			<p:messages id="messages" closable="true" />
 			<p:panel header="Cadastrar Promoções" id="panelSave">
 				<h:panelGrid>
@@ -41,36 +41,47 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{promocaoBean.salvar()}"
-						update="messages panelSave panelGrid"
+						update="messages panelSave listarPromo:panelGrid"
 						oncomplete="#{promocaoBean.listarPromocoes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
-
+		</h:form>
+		
+		<h:form id="listarPromo">
 			<p:panel header="Listagem de Promoções" id="panelGrid">
-				<!-- 		O data table mostra os dados -->
-				<!-- 		Empty message altera mensagem -->
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
-					paginator="true" rows="5" value="#{promocaoBean.promocoes}"
-					var="promo">
+					id="gridPromo" paginator="true" rows="5"
+					value="#{promocaoBean.promocoes}" var="promo">
 
 					<p:column headerText="Código">
 						<h:outputText value="#{promo.codPromocao}" />
 					</p:column>
+					
 					<p:column headerText="Tipo da Promoção">
 						<h:outputText value="#{promo.tipoPromocao}" />
 					</p:column>
+					
 					<p:column headerText="Data de Início">
 						<h:outputText value="#{promo.dtInicio}"
 							converter="javax.faces.DateTime" />
 					</p:column>
+					
 					<p:column headerText="Data Fim">
 						<h:outputText value="#{promo.dtFim}"
 							converter="javax.faces.DateTime" />
 					</p:column>
+					
 					<p:column headerText="Valor">
 						<h:outputText value="#{promo.valorPromocao}" />
+					</p:column>
+
+					<p:column headerText="Ações">
+						<p:commandButton icon="ui-icon-close"
+							actionListener="#{promocaoBean.deletar(promo)}"
+							update="cadastroPromo:messages gridPromo"
+							oncomplete="#{promocaoBean.listarPromocoes()}" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>

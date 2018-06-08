@@ -17,7 +17,7 @@ import br.org.yamash.until.facesUntil;
 public class autenticacaoBean {
 	
 	private Usuario usuario;
-
+	
 	public Usuario getUsuario() {
 		if (usuario == null) {
 			usuario = new Usuario();
@@ -31,18 +31,26 @@ public class autenticacaoBean {
 
 	public void entrar() {
 		try {
-			AdministradorDAO adminD = new AdministradorDAO();
-			EmpresaDAO empD = new EmpresaDAO();
-			ClientesDAO cliD = new ClientesDAO();
-
-			if (adminD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+			
+			Administrador adminlogado;
+			Empresa empresalogada;
+			Clientes clientelogado;
+			
+			if ((adminlogado = AdministradorDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Administrador logado com sucesso");
-			} else if (empD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+				usuario.setCodigo(adminlogado.getCodAdmin());
+				
+			} else if ((empresalogada = EmpresaDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Empresa logado com sucesso");
-			} else if (cliD.autenticar(usuario.getLogin(), usuario.getSenha()) != null) {
+				usuario.setCodigo(empresalogada.getCodEmpresa());
+				
+			} else if ((clientelogado = ClientesDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Cliente logado com sucesso");
+				usuario.setCodigo(clientelogado.getCodCliente());
+				
 			} else {
 				facesUntil.adicionarMsgErro("Login ou Senha inválidos.");
+				
 			}
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Erro ao tentar autenticar no sistema:" + ex.getMessage());

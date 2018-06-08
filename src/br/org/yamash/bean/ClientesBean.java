@@ -41,10 +41,26 @@ public class ClientesBean {
 		}
 	}
 	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codCliente");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				ClientesDAO cd = new ClientesDAO();
+				cliente = cd.ListarPorEntidade(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Cliente!");
+		}
+	}
+	
+	
 	public void salvar() {
 		
 		ClientesDAO cd = new ClientesDAO();
-		cliente.setStatusCliente(1);
+		cliente.setStatusCliente(true);
 		cd.salvar(cliente);
 		
 		facesUntil.adicionarMsgInfo("Cliente salvo com sucesso");
@@ -52,5 +68,26 @@ public class ClientesBean {
 		cliente = new Clientes();
 	}
 	
+	public void alterarStatus(Clientes cli) {
+		try {
+			ClientesDAO cd = new ClientesDAO();
+			cd.alterar(cli);
+			
+			facesUntil.adicionarMsgInfo("Situação do Cliente salvo com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Cliente. Favor contatar o administrador do sistema!");
+		}
+	}
+	
+	public void alterar() {
+		try {
+			ClientesDAO cd = new ClientesDAO();
+			cd.alterar(cliente);
+			
+			facesUntil.adicionarMsgInfo("Cliente alterado com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Cliente. Favor contatar o administrador do sistema!");
+		}
+	}
 	
 }

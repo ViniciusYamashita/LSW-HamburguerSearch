@@ -51,42 +51,61 @@
 
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						actionListener="#{itemBean.salvar()}" update="messages panelSave panelGrid"
+						actionListener="#{itemBean.salvar()}"
+						update="messages panelSave listarItems:panelGrid"
 						oncomplete="#{itemBean.listarItens()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
 				</h:panelGrid>
 			</p:panel>
-
+		</h:form>
+		
+		<h:form id="listarItems">
 			<p:panel header="Listagem dos Itens" id="panelGrid">
 				<!-- 		O data table mostra os dados -->
 				<!-- 		Empty message altera mensagem -->
 				<!-- 		Empty message altera mensagem -->
-				<p:dataTable emptyMessage="Nenhum registro encontrado"
+				<p:dataTable emptyMessage="Nenhum registro encontrado" id="gridItem"
 					paginator="true" value="#{itemBean.itens}" var="item">
 
 					<p:column headerText="Código">
 						<h:outputText value="#{item.codItem}" />
 					</p:column>
+					
 					<p:column headerText="Nome do Produto">
 						<h:outputText value="#{item.nome}" />
 					</p:column>
+					
 					<p:column headerText="Descição">
 						<h:outputText value="#{item.descricao}" />
 					</p:column>
+					
 					<p:column headerText="Preço">
 						<h:outputText value="#{item.preco}" />
 					</p:column>
+					
 					<p:column headerText="Código da Empresa">
 						<h:outputText value="#{item.codEmpresa.nome}" />
 					</p:column>
-					<p:column headerText="Situação do Item">
-						<h:outputText value="#{item.situacaoItem}" />
+
+					<p:column headerText="Disponibilidade">
+						<p:inputSwitch value="#{item.situacaoItem}" onLabel="Disponível"
+							offLabel="Indisponível">
+							<p:ajax listener="#{itemBean.alterarStatus(item)}"
+								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
+						</p:inputSwitch>
 					</p:column>
 
+					<p:column headerText="Situação">
+						<p:inputSwitch value="#{item.statusItem}" onLabel="Ativo"
+							offLabel="Inativo">
+							<p:ajax listener="#{itemBean.alterarStatus(item)}"
+								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
+						</p:inputSwitch>
+					</p:column>
 				</p:dataTable>
 			</p:panel>
-
 		</h:form>
+		
 	</ui:define>
 </ui:composition>

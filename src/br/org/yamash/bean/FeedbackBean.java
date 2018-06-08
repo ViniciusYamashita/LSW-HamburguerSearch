@@ -8,7 +8,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.swing.text.DateFormatter;
 
 import br.org.yamash.dao.ClientesDAO;
 import br.org.yamash.dao.EmpresaDAO;
@@ -85,20 +84,36 @@ public class FeedbackBean {
 			ClientesDAO cd = new ClientesDAO();
 			clientes = cd.Listar();
 		} catch (RuntimeException e) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Itens!");
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Feedbacks!");
 		}
 	}
 
 	public void salvar() throws ParseException {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		FeedbackDAO fd = new FeedbackDAO();
-//		feedback.setCodCliente(session.getClass().getDeclaredField());
-		feedback.setDtFeedback(carregarData());
-		fd.salvar(feedback);
+		try {
+//			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			
+			FeedbackDAO fd = new FeedbackDAO();
+//			feedback.setCodCliente(session.getClass().getDeclaredField());
+//			feedback.setCodCliente(facesUntil.getUserSession());
+			feedback.setDtFeedback(carregarData());
+			fd.salvar(feedback);
 
-		facesUntil.adicionarMsgInfo("Item salvo com sucesso");
+			facesUntil.adicionarMsgInfo("Feedback salvo com sucesso");
 
-		feedback = new Feedback();
+			feedback = new Feedback();
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar o Feedback!. Contate o Administrador do sistema!");
+		}	
+	}
+	
+	public void deletar(Feedback feedback) {
+		try {
+			FeedbackDAO feedbackDAO = new FeedbackDAO();
+			feedbackDAO.deletar(feedback);
+
+			facesUntil.adicionarMsgInfo("Feedback excluido com sucesso");
+		}catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao excluir o Feedback!.");
+		}
 	}
 }

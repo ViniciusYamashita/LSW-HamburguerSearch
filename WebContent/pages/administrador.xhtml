@@ -9,8 +9,8 @@
 
 	<ui:define name="conteudo">
 
-		<h:form>
-		<p:messages id="messages" closable="true"/>
+		<h:form id="cadastroAdministrador">
+			<p:messages id="messages" closable="true" />
 			<p:panel header="Cadastrar Administrador" id="panelSave">
 				<h:panelGrid>
 					<p:outputLabel value="Nome Completo : *" />
@@ -38,100 +38,64 @@
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
-						action="#{administradorBean.salvar()}"
-						update="messages panelSave panelGrid"
+						actionListener="#{administradorBean.salvar()}"
+						update="messages panelSave listaAdministrador:panelGrid"
 						oncomplete="#{administradorBean.listarAdministrador()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
-<!-- 					<p:commandButton value="Fechar" -->
-<!-- 						oncomplete="#{administradorBean.administradores}" -->
-<!-- 						immediate="true" process="@this" ajax="false"> -->
-<!-- 						<p:resetInput target="panelSave" /> -->
-<!-- 					</p:commandButton> -->
 				</h:panelGrid>
 			</p:panel>
-			
-		<!-- 	Estabelecer area de formulario -->
-			<p:panel header="Listagem Administradores" id="panelGrid">
+		</h:form>
+		<h:form id="listaAdministrador">
+			<!-- 	Estabelecer area de formulario -->
+			<p:panel id="panelGrid" header="Listagem Administradores">
 				<!-- 		O data table mostra os dados -->
 				<!-- 		Empty message altera mensagem -->
 				<!-- 		Empty message altera mensagem -->
+
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
-					paginator="true" rows="5" value="#{administradorBean.administradores}"
-					var="cursor">
+					paginator="true" rows="5" id="gridAdmin"
+					value="#{administradorBean.administradores}" var="admin">
 					<p:column headerText="Nome Completo">
-						<h:outputText value="#{cursor.nomeCompleto}" />
+						<h:outputText value="#{admin.nomeCompleto}" />
 					</p:column>
+
 					<p:column headerText="Data de nascimento">
-						<h:outputText value="#{cursor.dtNascimento}"
+						<h:outputText value="#{admin.dtNascimento}"
 							converter="javax.faces.DateTime" />
 					</p:column>
-					<!-- 				<p:column headerText="Data de nascimento"> -->
-					<!-- 					<h:outputText value="#{cursor.dtNascimento}" /> -->
-					<!-- 				</p:column> -->
+
 					<p:column headerText="CPF">
-						<h:outputText value="#{cursor.cpf}" />
+						<h:outputText value="#{admin.cpf}" />
 					</p:column>
+
 					<p:column headerText="E-mail">
-						<h:outputText value="#{cursor.email}" />
+						<h:outputText value="#{admin.email}" />
 					</p:column>
 					<!-- 				<p:column headerText="Senha"> -->
 					<!-- 					<h:outputText value="#{cursor.senha}" /> -->
 					<!-- 				</p:column> -->
 					<p:column headerText="Telefone">
-						<h:outputText value="#{cursor.telefone}" />
+						<h:outputText value="#{admin.telefone}" />
 					</p:column>
+					
+					<p:column headerText="Situação">
+						<p:inputSwitch value="#{admin.statusAdmin}" onLabel="Ativo" offLabel="Inativo">
+							<p:ajax listener="#{administradorBean.alterarStatus(admin)}"
+								update="listaAdministrador:panelGrid"
+								oncomplete="#{administradorBean.listarAdministrador()}" />
+						</p:inputSwitch>
+					</p:column>
+
 					<p:column headerText="Ações">
-						<p:commandButton icon="ui-icon-pencil" actionListener="#" />
+						<p:commandButton icon="ui-icon-close" value="Alterar" />
+<!-- 							update="cadastroAdministrador:messages gridAdmin" -->
+<!-- 							oncomplete="#{administradorBean.listarAdministrador()}" -->
 					</p:column>
 
 				</p:dataTable>
 			</p:panel>
-
-			<!-- 		Alterar -->
-<!-- 			<p:dialog header="Cadastro Administrador" -->
-<!-- 				widgetVar="dlgAdministradorAlterar" draggable="false" -->
-<!-- 				resizable="false" modal="true" closable="false"> -->
-<!-- 				<h:form> -->
-<!-- 					<p:messages id="messages" closable="true" /> -->
-<!-- 					<h:panelGrid id="panelAlter"> -->
-<!-- 						<p:outputLabel value="Nome Completo : *" /> -->
-<!-- 						<p:inputText size="50" maxlength="50" -->
-<!-- 							value="#{administradorBean.administrador.nomeCompleto}" /> -->
-<!-- 						<p:outputLabel for="effect" value="Data de Nascimento:" /> -->
-<!-- 						<p:calendar id="effect" -->
-<!-- 							maxdate="#{administradorBean.carregarData()}" -->
-<!-- 							value="#{administradorBean.administrador.dtNascimento}" -->
-<!-- 							pattern="dd/MM/yyyy" effect="fold" /> -->
-<!-- 						<p:outputLabel value="CPF: *" /> -->
-<!-- 						<p:inputMask size="50" maxlength="50" -->
-<!-- 							value="#{administradorBean.administrador.cpf}" -->
-<!-- 							mask="999.999.999-99" /> -->
-<!-- 						<p:outputLabel value="E-mail: *" /> -->
-<!-- 						<p:inputText size="50" maxlength="50" -->
-<!-- 							value="#{administradorBean.administrador.email}" /> -->
-<!-- 						<p:outputLabel value="Alterar Senha: " /> -->
-<!-- 						<p:inputText size="50" maxlength="16" placeholder="(Inalterado)" -->
-<!-- 							value="#{administradorBean.administrador.senha}" /> -->
-<!-- 						<p:outputLabel value="Telefone: " /> -->
-<!-- 						<p:inputMask size="50" maxlength="15" mask="(99) 99999-9999" -->
-<!-- 							value="#{administradorBean.administrador.telefone}" /> -->
-
-<!-- 					</h:panelGrid> -->
-<!-- 					<h:panelGrid columns="2"> -->
-<!-- 						<p:commandButton value="Gravar" -->
-<!-- 							actionListener="#{administradorBean}" -->
-<!-- 							update="messages panelAlter" -->
-<!-- 							oncomplete="#{administradorBean.listarAdministrador()}" /> -->
-<!-- 						<p:commandButton value="Fechar" -->
-<!-- 							oncomplete="PF('dlgAdministradorAlterar').hide(); #{administradorBean.administradores}" -->
-<!-- 							immediate="true" process="@this" ajax="false"> -->
-<!-- 							<p:resetInput target="panelAlter" /> -->
-<!-- 						</p:commandButton> -->
-<!-- 					</h:panelGrid> -->
-<!-- 				</h:form> -->
-<!-- 			</p:dialog> -->
-
 		</h:form>
+		
 	</ui:define>
 </ui:composition>

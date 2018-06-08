@@ -45,7 +45,7 @@ public class Administrador {
 	private String telefone;
 	 
 	@Column(name="statusAdmin", nullable=false)
-	private int statusAdmin;
+	private boolean statusAdmin;
 
 	public long getCodAdmin() {
 		return codAdmin;
@@ -103,11 +103,11 @@ public class Administrador {
 		this.telefone = telefone;
 	}
 
-	public int getStatusAdmin() {
+	public boolean getStatusAdmin() {
 		return statusAdmin;
 	}
 
-	public void setStatusAdmin(int statusAdmin) {
+	public void setStatusAdmin(boolean statusAdmin) {
 		this.statusAdmin = statusAdmin;
 	}
 

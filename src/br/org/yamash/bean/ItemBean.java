@@ -67,15 +67,28 @@ public class ItemBean {
 	}
 
 	public void salvar() {
+		try {
+			ItemDAO id = new ItemDAO();
+			item.setStatusItem(true);
+			item.setFoto("Sem foto");;
+			id.salvar(item);
 
-		ItemDAO id = new ItemDAO();
-		item.setStatusItem(1);
-		item.setFoto("Sem foto");;
-		id.salvar(item);
-
-		facesUntil.adicionarMsgInfo("Item salvo com sucesso");
-
-		item = new Item();
+			facesUntil.adicionarMsgInfo("Item salvo com sucesso");
+			
+			item = new Item();
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar o Item. Favor contate o administrador do sistema!");
+		}
+	}
+	
+	public void alterarStatus(Item item) {
+		try {
+			ItemDAO itemDAO = new ItemDAO();
+			itemDAO.alterar(item);
+			
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Item. Favor contatar o administrador do sistema!");
+		}
 	}
 
 }

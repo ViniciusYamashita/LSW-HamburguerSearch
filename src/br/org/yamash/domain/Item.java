@@ -33,7 +33,7 @@ public class Item {
 	private String foto;
 	 
 	@Column(name="statusItem", nullable=false)
-	private int statusItem;
+	private boolean statusItem;
 	 
 	@NotNull(message="O campo 'Situação do Item' é obrigatório.")
 	@Column(name="situacaoItem", nullable=false)
@@ -84,11 +84,11 @@ public class Item {
 		this.foto = foto;
 	}
 
-	public int getStatusItem() {
+	public boolean getStatusItem() {
 		return statusItem;
 	}
 
-	public void setStatusItem(int statusItem) {
+	public void setStatusItem(boolean statusItem) {
 		this.statusItem = statusItem;
 	}
 

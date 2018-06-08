@@ -62,19 +62,32 @@ public class EmpresaBean {
 		}
 	}
 
-	
 	public void salvar() {
+		try {
+			EmpresaDAO fd = new EmpresaDAO();
+			empresa.setSenha("123");
+			empresa.setValidado(false);
+			empresa.setStatusEmpresa(false);
+			empresa.setNomeUsuario("321");
 
-		EmpresaDAO fd = new EmpresaDAO();
-		empresa.setSenha("123");
-		empresa.setStatusEmpresa(1);
-		empresa.setNomeUsuario("321");
-		
-		fd.salvar(empresa);
+			fd.salvar(empresa);
 
-		facesUntil.adicionarMsgInfo("Empresa salva com sucesso");
+			facesUntil.adicionarMsgInfo("Empresa salva com sucesso");
 
-		empresa = new Empresa();
+			empresa = new Empresa();
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Salvar Empresa!. Contate o Administrador do sistema!");
+		}
+	}
+	
+	public void alterarStatus(Empresa empresa) {
+		try {
+			EmpresaDAO empresaDAO = new EmpresaDAO();
+			empresaDAO.alterar(empresa);
+			
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Cliente. Favor contatar o administrador do sistema!");
+		}
 	}
 
 }

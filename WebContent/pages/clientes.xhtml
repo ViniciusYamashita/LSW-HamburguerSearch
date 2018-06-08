@@ -10,7 +10,7 @@
 	<ui:define name="conteudo">
 		<!-- 	Estabelecer area de formulario -->
 
-		<h:form>
+		<h:form id="cadastroClientes">
 			<p:messages id="messages" closable="true" />
 
 			<p:panel header="Cadastro de Clientes" id="panelSave">
@@ -35,21 +35,22 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"
 						actionListener="#{clientesBean.salvar()}"
-						update="messages panelSave panelGrid"
+						update="messages panelSave listaClientes:panelGrid"
 						oncomplete="#{clientesBean.listarClientes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
 				</h:panelGrid>
-
 			</p:panel>
+		</h:form>
 
-			<p:panel header="Listagem dos Clientes" id="panelGrid">
+		<h:form id="listaClientes">
+			<p:panel id="panelGrid" header="Listagem dos Clientes">
 				<!-- 		O data table mostra os dados -->
 				<!-- 		Empty message altera mensagem -->
 				<!-- 		Empty message altera mensagem -->
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
-					paginator="true" rows="5" value="#{clientesBean.clientes}"
-					var="cliente">
+					id="dataGridd" paginator="true" rows="5"
+					value="#{clientesBean.clientes}" var="cliente">
 					<!-- 			Alterar a propriedade do footer , adicionar o botao-->
 
 					<p:column headerText="Código">
@@ -64,8 +65,19 @@
 					<p:column headerText="E-mail">
 						<h:outputText value="#{cliente.email}" />
 					</p:column>
+
 					<p:column headerText="Situação">
-						<h:outputText value="#" />
+						<p:inputSwitch value="#{cliente.statusCliente}" onLabel="Ativo"
+							offLabel="Inativo">
+							<p:ajax listener="#{clientesBean.alterarStatus(cliente)}"
+								update="dataGridd" oncomplete="#{c}" />
+						</p:inputSwitch>
+					</p:column>
+
+					<p:column headerText="Ações">
+						<p:button icon="ui-icon-pencil" outcome="/pages/clientesDados.xhtml" >
+							<f:param name="codCliente" value="#{cliente.codCliente}" />
+						</p:button>
 					</p:column>
 				</p:dataTable>
 			</p:panel>
