@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -17,13 +17,13 @@
 					<p:outputLabel value="Nome do Produto: *" />
 					<p:inputText size="50" maxlength="80" value="#{itemBean.item.nome}" />
 
-					<p:outputLabel value="Descrição: *" />
+					<p:outputLabel value="DescriÃ§Ã£o: *" />
 					<p:inputTextarea rows="5" cols="50" counter="display"
 						maxlength="500" counterTemplate="{0} caracteres restante."
 						autoResize="false" value="#{itemBean.item.descricao}" />
 					<h:outputText id="display" />
 
-					<p:outputLabel value="Preço: *" />
+					<p:outputLabel value="PreÃ§o: *" />
 					<h:panelGrid columns="2">
 						<p:outputLabel value="R$ " />
 						<p:inputNumber value="#{itemBean.item.preco}" decimalSeparator=","
@@ -38,13 +38,13 @@
 							itemLabel="#{emp.nome}" itemValue="#{emp}" />
 					</p:selectOneMenu>
 
-					<p:outputLabel value="Situação do Item" />
+					<p:outputLabel value="SituaÃ§Ã£o do Item" />
 					<h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
 						<p:selectOneRadio id="console"
 							value="#{itemBean.item.situacaoItem}">
-							<f:selectItem itemLabel="Disponível" itemValue="true"
+							<f:selectItem itemLabel="DisponÃ­vel" itemValue="true"
 								itemEscaped="true" />
-							<f:selectItem itemLabel="Indisponível" itemValue="false" />
+							<f:selectItem itemLabel="IndisponÃ­vel" itemValue="false" />
 						</p:selectOneRadio>
 					</h:panelGrid>
 				</h:panelGrid>
@@ -56,6 +56,8 @@
 						oncomplete="#{itemBean.listarItens()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
+					
+					<p:button value="Voltar" outcome="/pages/principal.xhtml" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
@@ -68,7 +70,7 @@
 				<p:dataTable emptyMessage="Nenhum registro encontrado" id="gridItem"
 					paginator="true" value="#{itemBean.itens}" var="item">
 
-					<p:column headerText="Código">
+					<p:column headerText="CÃ³digo">
 						<h:outputText value="#{item.codItem}" />
 					</p:column>
 					
@@ -76,32 +78,38 @@
 						<h:outputText value="#{item.nome}" />
 					</p:column>
 					
-					<p:column headerText="Descição">
+					<p:column headerText="DesciÃ§Ã£o">
 						<h:outputText value="#{item.descricao}" />
 					</p:column>
 					
-					<p:column headerText="Preço">
+					<p:column headerText="PreÃ§o">
 						<h:outputText value="#{item.preco}" />
 					</p:column>
 					
-					<p:column headerText="Código da Empresa">
+					<p:column headerText="CÃ³digo da Empresa">
 						<h:outputText value="#{item.codEmpresa.nome}" />
 					</p:column>
 
 					<p:column headerText="Disponibilidade">
-						<p:inputSwitch value="#{item.situacaoItem}" onLabel="Disponível"
-							offLabel="Indisponível">
+						<p:inputSwitch value="#{item.situacaoItem}" onLabel="DisponÃ­vel"
+							offLabel="IndisponÃ­vel">
 							<p:ajax listener="#{itemBean.alterarStatus(item)}"
 								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
 						</p:inputSwitch>
 					</p:column>
 
-					<p:column headerText="Situação">
+					<p:column headerText="SituaÃ§Ã£o">
 						<p:inputSwitch value="#{item.statusItem}" onLabel="Ativo"
 							offLabel="Inativo">
 							<p:ajax listener="#{itemBean.alterarStatus(item)}"
 								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
 						</p:inputSwitch>
+					</p:column>
+					
+					<p:column headerText="AÃ§Ãµes">
+						<p:button icon="ui-icon-pencil" outcome="/pages/ItemDados.xhtml">
+							<f:param name="codItem" value="#{item.codItem}" />
+						</p:button>
 					</p:column>
 				</p:dataTable>
 			</p:panel>

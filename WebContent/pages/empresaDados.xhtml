@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{empresaBean.listarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="cadastroEmpresa">
+			<p:messages id="messages" closable="true" />
+			<p:panel header="Alterar Empresa" id="panelCentral">
+				<h:outputLabel value="Informações da Empresa" />
+				<hr />
+				<h:panelGrid id="panelSave" cellpadding="5" columns="2">
+					<p:outputLabel value="Nome da Empresa : *" />
+					<p:inputText size="62" maxlength="50" id="nome"
+						value="#{empresaBean.empresa.nome}" />
+
+					<p:outputLabel value="Razão Social/Fantasia: *" />
+					<p:inputText size="62" maxlength="50"
+						value="#{empresaBean.empresa.razaoSocialFantasia}" />
+
+					<p:outputLabel value="CNPJ: *" />
+					<p:inputMask size="30" maxlength="50" mask="99.999.999/9999-99"
+						value="#{empresaBean.empresa.cnpj}" />
+				</h:panelGrid>
+
+				<h:outputLabel value="Endereço" />
+				<hr />
+				<h:panelGrid id="panelSave1" columns="4" cellpadding="5">
+					<p:outputLabel value="CEP: *" />
+					<p:inputMask size="15" maxlength="9"
+						value="#{empresaBean.empresa.cep}" mask="99999-999" />
+
+					<p:outputLabel value="Bairro: *" />
+					<p:inputText size="20" maxlength="50"
+						value="#{empresaBean.empresa.bairro}" />
+
+					<p:outputLabel value="Logradouro: * " />
+					<p:inputMask size="40" maxlength="50"
+						value="#{empresaBean.empresa.logradouro}" />
+
+					<p:outputLabel value="Nº: *" />
+					<p:inputMask size="6" maxlength="6"
+						value="#{empresaBean.empresa.numeroLocal}" />
+				</h:panelGrid>
+
+				<h:outputLabel value="Informações de contato" />
+				<hr />
+				<h:panelGrid cellpadding="5" columns="2">
+					<p:outputLabel value="E-mail: * " />
+					<p:inputMask size="62" maxlength="50"
+						value="#{empresaBean.empresa.email}" />
+
+					<p:outputLabel value="Nome do Proprietário: *" />
+					<p:inputText size="50" maxlength="50"
+						value="#{empresaBean.empresa.nomeProprietario}" />
+
+					<p:outputLabel value="Telefone: *" />
+					<p:inputMask size="15" maxlength="50" mask="(99)99999-9999"
+						value="#{empresaBean.empresa.telefone}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="timeAbertura" value="Horário de Abertura: *" />
+					<p:calendar id="timeAbertura"
+						value="#{empresaBean.empresa.horarioAbertura}" pattern="HH:mm"
+						mask="true" timeOnly="true" />
+
+					<p:outputLabel for="timeFechamento"
+						value="Horário de Fechamento: *" />
+					<p:calendar id="timeFechamento"
+						value="#{empresaBean.empresa.horarioFechamento}" pattern="HH:mm"
+						mask="true" timeOnly="true" />
+				</h:panelGrid>
+
+				<p:outputLabel for="diasAberto" value="Dias de abertura: " />
+				<h:panelGrid id="diasAberto" cellpadding="3" columns="14">
+					<p:selectBooleanCheckbox itemLabel="Segunda"
+						value="#{empresaBean.empresa.segunda}" />
+					<p:selectBooleanCheckbox itemLabel="Terça"
+						value="#{empresaBean.empresa.terca}" />
+					<p:selectBooleanCheckbox itemLabel="Quarta"
+						value="#{empresaBean.empresa.quarta}" />
+					<p:selectBooleanCheckbox itemLabel="Quinta"
+						value="#{empresaBean.empresa.quinta}" />
+					<p:selectBooleanCheckbox itemLabel="Sexta"
+						value="#{empresaBean.empresa.sexta}" />
+					<p:selectBooleanCheckbox itemLabel="Sabado"
+						value="#{empresaBean.empresa.sabado}" />
+					<p:selectBooleanCheckbox itemLabel="Domingo"
+						value="#{empresaBean.empresa.domingo}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{empresaBean.alterar()}" update="messages">
+					</p:commandButton>
+
+					<p:button id="voltar" value="Voltar" outcome="/pages/empresa.xhtml" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

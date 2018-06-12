@@ -7,8 +7,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
@@ -68,6 +68,21 @@ public class AdministradorBean {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Administradores!");
 		}
 	}
+	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codAdmin");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				AdministradorDAO adminDAO = new AdministradorDAO();
+				administrador = adminDAO.ListarPorEntidade(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Administrador!");
+		}
+	}
 
 	public void salvar() {
 
@@ -80,6 +95,18 @@ public class AdministradorBean {
 
 		administrador = new Administrador();
 	}
+	
+	public void alterar() {
+		try {
+			AdministradorDAO adminDAO = new AdministradorDAO();
+			adminDAO.alterar(administrador);
+			
+			facesUntil.adicionarMsgInfo("Administrador alterado com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Administrador. Favor contatar o administrador do sistema!");
+		}
+	}
+
 
 	public void alterarStatus(Administrador admin) {
 		try {
@@ -87,7 +114,7 @@ public class AdministradorBean {
 			adminDAO.alterar(admin);
 			
 		} catch (RuntimeException ex) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Cliente. Favor contatar o administrador do sistema!");
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Adminitrador. Favor contatar o administrador do sistema!");
 		}
 	}
 }

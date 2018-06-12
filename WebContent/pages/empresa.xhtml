@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -12,14 +12,14 @@
 		<h:form id="cadastroEmpresa">
 			<p:messages id="messages" closable="true" />
 			<p:panel header="Cadastrar Empresas" id="panelCentral">
-				<h:outputLabel value="Informações da Empresa" />
+				<h:outputLabel value="InformaÃ§Ãµes da Empresa" />
 				<hr />
 				<h:panelGrid id="panelSave" cellpadding="5" columns="2">
 					<p:outputLabel value="Nome da Empresa : *" />
 					<p:inputText size="62" maxlength="50" id="nome"
 						value="#{empresaBean.empresa.nome}" />
 
-					<p:outputLabel value="Razão Social/Fantasia: *" />
+					<p:outputLabel value="RazÃ£o Social/Fantasia: *" />
 					<p:inputText size="62" maxlength="50"
 						value="#{empresaBean.empresa.razaoSocialFantasia}" />
 
@@ -28,7 +28,9 @@
 						value="#{empresaBean.empresa.cnpj}" />
 				</h:panelGrid>
 
-				<h:outputLabel value="Endereço" />
+				<br />
+
+				<h:outputLabel value="EndereÃ§o" />
 				<hr />
 				<h:panelGrid id="panelSave1" columns="4" cellpadding="5">
 					<p:outputLabel value="CEP: *" />
@@ -43,19 +45,21 @@
 					<p:inputMask size="40" maxlength="50"
 						value="#{empresaBean.empresa.logradouro}" />
 
-					<p:outputLabel value="Nº: *" />
+					<p:outputLabel value="NÂº: *" />
 					<p:inputMask size="6" maxlength="6"
 						value="#{empresaBean.empresa.numeroLocal}" />
 				</h:panelGrid>
 
-				<h:outputLabel value="Informações de contato" />
+				<br />
+
+				<h:outputLabel value="InformaÃ§Ãµes de contato" />
 				<hr />
 				<h:panelGrid cellpadding="5" columns="2">
 					<p:outputLabel value="E-mail: * " />
 					<p:inputMask size="62" maxlength="50"
 						value="#{empresaBean.empresa.email}" />
 
-					<p:outputLabel value="Nome do Proprietário: *" />
+					<p:outputLabel value="Nome do ProprietÃ¡rio: *" />
 					<p:inputText size="50" maxlength="50"
 						value="#{empresaBean.empresa.nomeProprietario}" />
 
@@ -65,38 +69,46 @@
 				</h:panelGrid>
 
 				<h:panelGrid columns="4" cellpadding="5">
-					<p:outputLabel for="timeAbertura" value="Horário de Abertura: *" />
+					<p:outputLabel for="timeAbertura" value="HorÃ¡rio de Abertura: *" />
 					<p:calendar id="timeAbertura"
 						value="#{empresaBean.empresa.horarioAbertura}" pattern="HH:mm"
 						mask="true" timeOnly="true" />
 
 					<p:outputLabel for="timeFechamento"
-						value="Horário de Fechamento: *" />
+						value="HorÃ¡rio de Fechamento: *" />
 					<p:calendar id="timeFechamento"
 						value="#{empresaBean.empresa.horarioFechamento}" pattern="HH:mm"
 						mask="true" timeOnly="true" />
 				</h:panelGrid>
 				
-<!-- 				<h:panelGrid cellpadding="3"> -->
-<!-- 					<p:selectManyCheckbox id="basic" columns="14" value="empresaBean.empresa"> -->
-<!-- 						<f:selectItem itemLabel="Segunda" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.segunda}" /> -->
-<!-- 						<f:selectItem itemLabel="Terça" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.terca}" /> -->
-<!-- 						<f:selectItem itemLabel="Quarta" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.quarta}" /> -->
-<!-- 						<f:selectItem itemLabel="Quinta" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.quinta}" /> -->
-<!-- 						<f:selectItem itemLabel="Sexta" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.sexta}" /> -->
-<!-- 						<f:selectItem itemLabel="Sabado" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.sabado}" /> -->
-<!-- 						<f:selectItem itemLabel="Domingo" noSelectionOption="false" itemValue="true" value="#{empresaBean.empresa.domingo}" /> -->
-<!-- 					</p:selectManyCheckbox> -->
-<!-- 				</h:panelGrid> -->
+				<br />
 
-				<h:panelGrid columns="2">
+				<p:outputLabel value="Dias de abertura: " />
+				<h:panelGrid cellpadding="3" columns="14">
+					<p:selectBooleanCheckbox itemLabel="Segunda"
+						value="#{empresaBean.empresa.segunda}" />
+					<p:selectBooleanCheckbox itemLabel="TerÃ§a"
+						value="#{empresaBean.empresa.terca}" />
+					<p:selectBooleanCheckbox itemLabel="Quarta"
+						value="#{empresaBean.empresa.quarta}" />
+					<p:selectBooleanCheckbox itemLabel="Quinta"
+						value="#{empresaBean.empresa.quinta}" />
+					<p:selectBooleanCheckbox itemLabel="Sexta"
+						value="#{empresaBean.empresa.sexta}" />
+					<p:selectBooleanCheckbox itemLabel="Sabado"
+						value="#{empresaBean.empresa.sabado}" />
+					<p:selectBooleanCheckbox itemLabel="Domingo"
+						value="#{empresaBean.empresa.domingo}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="3">
 					<p:commandButton value="Salvar"
 						actionListener="#{empresaBean.salvar()}"
 						update="messages panelCentral listarEmpresas:panelGrid"
 						oncomplete="#{empresaBean.listarEmpresas()}">
 						<p:resetInput target="panelCentral" />
 
-						<p:confirm header="Confirmar Operação?"
+						<p:confirm header="Confirmar OperaÃ§Ã£o?"
 							message="Deseja incluir a empresa?" icon="ui-icon-alert" />
 					</p:commandButton>
 
@@ -105,13 +117,15 @@
 							styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
 							<p:resetInput target="panelCentral" />
 						</p:commandButton>
-						<p:commandButton value="Não" type="button"
+						<p:commandButton value="NÃ£o" type="button"
 							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>
+					
+					<p:button value="Voltar" outcome="/pages/principal.xhtml" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-		
+
 		<h:form id="listarEmpresas">
 			<p:panel header="Listagem Empresa" id="panelGrid">
 				<p:dataTable widgetVar="tabela"
@@ -125,7 +139,7 @@
 						<h:outputText value="#{cursor.nome}" />
 					</p:column>
 
-					<p:column headerText="Razão Social/Fantasia">
+					<p:column headerText="RazÃ£o Social/Fantasia">
 						<h:outputText value="#{cursor.razaoSocialFantasia}" />
 					</p:column>
 
@@ -137,9 +151,9 @@
 						<h:outputText value="#{cursor.logradouro}" />
 					</p:column>
 
-					<p:column headerText="Bairro">
-						<h:outputText value="#{cursor.bairro}" />
-					</p:column>
+					<!-- 					<p:column headerText="Bairro"> -->
+					<!-- 						<h:outputText value="#{cursor.bairro}" /> -->
+					<!-- 					</p:column> -->
 
 					<p:column headerText="E-mail">
 						<h:outputText value="#{cursor.email}" />
@@ -149,29 +163,42 @@
 						<h:outputText value="#{cursor.telefone}" />
 					</p:column>
 
-					<p:column headerText="Nome do Proprietário">
+					<p:column headerText="Nome do ProprietÃ¡rio">
 						<h:outputText value="#{cursor.nomeProprietario}" />
 					</p:column>
 
-					<p:column headerText="Horário de Abertura">
-						<h:outputText value="#{cursor.horarioAbertura}" />
-					</p:column>
+					<!-- 					<p:column headerText="HorÃ¡rio de Abertura"> -->
+					<!-- 						<h:outputText value="#{cursor.horarioAbertura}" /> -->
+					<!-- 					</p:column> -->
 
-					<p:column headerText="Horário de Fechamento">
-						<h:outputText value="#{cursor.horarioFechamento}" />
-					</p:column>
-					
-					<p:column headerText="Situação">
-						<p:inputSwitch value="#{cursor.statusEmpresa}" onLabel="Ativo" offLabel="Inativo">
+					<!-- 					<p:column headerText="HorÃ¡rio de Fechamento"> -->
+					<!-- 						<h:outputText value="#{cursor.horarioFechamento}" /> -->
+					<!-- 					</p:column> -->
+
+					<p:column headerText="SituaÃ§Ã£o">
+						<p:inputSwitch value="#{cursor.statusEmpresa}" onLabel="Ativo"
+							offLabel="Inativo">
 							<p:ajax listener="#{empresaBean.alterarStatus(cursor)}"
 								update="listarEmpresas:panelGrid"
 								oncomplete="#{empresaBean.listarEmpresas()}" />
 						</p:inputSwitch>
 					</p:column>
-					
+
+					<p:column headerText="AÃ§Ãµes">
+						<p:button icon="ui-icon-pencil" title="Alterar"
+							outcome="/pages/empresaDados.xhtml">
+							<f:param name="codEmpresa" value="#{cursor.codEmpresa}" />
+						</p:button>
+
+						<p:button icon="ui-icon-check" title="Validar Empresa"
+							outcome="/pages/empresaValidar.xhtml">
+							<f:param name="codEmpresa" value="#{cursor.codEmpresa}" />
+						</p:button>
+					</p:column>
+
 				</p:dataTable>
 			</p:panel>
 		</h:form>
-		
+
 	</ui:define>
 </ui:composition>

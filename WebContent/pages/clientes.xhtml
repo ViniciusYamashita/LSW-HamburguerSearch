@@ -39,6 +39,8 @@
 						oncomplete="#{clientesBean.listarClientes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
+					
+					<p:button value="Voltar" outcome="/pages/principal.xhtml" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
@@ -70,12 +72,13 @@
 						<p:inputSwitch value="#{cliente.statusCliente}" onLabel="Ativo"
 							offLabel="Inativo">
 							<p:ajax listener="#{clientesBean.alterarStatus(cliente)}"
-								update="dataGridd" oncomplete="#{c}" />
+								update="dataGridd" />
 						</p:inputSwitch>
 					</p:column>
 
 					<p:column headerText="Ações">
-						<p:button icon="ui-icon-pencil" outcome="/pages/clientesDados.xhtml" >
+						<p:button icon="ui-icon-pencil"
+							outcome="/pages/clientesDados.xhtml">
 							<f:param name="codCliente" value="#{cliente.codCliente}" />
 						</p:button>
 					</p:column>

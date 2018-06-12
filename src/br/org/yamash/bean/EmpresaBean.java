@@ -61,6 +61,21 @@ public class EmpresaBean {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar as Empresas!");
 		}
 	}
+	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codEmpresa");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				EmpresaDAO fd = new EmpresaDAO();
+				empresa = fd.ListarPorEntidade(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Empresa!");
+		}
+	}
 
 	public void salvar() {
 		try {
@@ -80,13 +95,26 @@ public class EmpresaBean {
 		}
 	}
 	
+	public void alterar() {
+		try {
+			EmpresaDAO fd = new EmpresaDAO();
+			fd.alterar(empresa);
+			
+			facesUntil.adicionarMsgInfo("Empresa alterado com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Empresa. Favor contatar o administrador do sistema!");
+		}
+	}
+	
 	public void alterarStatus(Empresa empresa) {
 		try {
 			EmpresaDAO empresaDAO = new EmpresaDAO();
 			empresaDAO.alterar(empresa);
 			
+			facesUntil.adicionarMsgInfo("Empresa Validada!");
+			
 		} catch (RuntimeException ex) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação do Cliente. Favor contatar o administrador do sistema!");
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação da Empresa. Favor contatar o administrador do sistema!");
 		}
 	}
 

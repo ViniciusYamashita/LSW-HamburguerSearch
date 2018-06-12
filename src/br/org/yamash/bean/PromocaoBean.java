@@ -57,6 +57,21 @@ public class PromocaoBean {
 		}
 	}
 	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codPromocao");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				PromocaoDAO promoDAO = new PromocaoDAO();
+				promocao = promoDAO.ListarPorEntidade(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Item!");
+		}
+	}
+	
 	public void salvar() {
 		try {
 			PromocaoDAO pd = new PromocaoDAO();
@@ -68,6 +83,17 @@ public class PromocaoBean {
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar promoção. Contate o Administrador do sistema!");
 		}	
+	}
+	
+	public void alterar() {
+		try {
+			PromocaoDAO promoDAO = new PromocaoDAO();
+			promoDAO.alterar(promocao);
+			
+			facesUntil.adicionarMsgInfo("Promoção alterada com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a Promoção. Favor contatar o administrador do sistema!");
+		}
 	}
 	
 	public void deletar(Promocao promo) {

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{empresaBean.listarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:messages id="messages" closable="true" />
+			<p:panel header="Validar Empresa" id="panelCentral">
+				<h:outputLabel value="Informações da Empresa" />
+				<hr />
+				<h:panelGrid id="panelSave" cellpadding="5" columns="2">
+					<p:outputLabel value="Nome da Empresa : *" />
+					<p:outputLabel value="#{empresaBean.empresa.nome}" />
+
+					<p:outputLabel value="Razão Social/Fantasia: *" />
+					<p:outputLabel value="#{empresaBean.empresa.razaoSocialFantasia}" />
+
+					<p:outputLabel value="CNPJ: *" />
+					<p:outputLabel value="#{empresaBean.empresa.cnpj}" />
+				</h:panelGrid>
+
+				<br />
+
+				<h:outputLabel value="Endereço" />
+				<hr />
+				<h:panelGrid id="panelSave1" columns="4" cellpadding="5">
+					<p:outputLabel value="CEP: *" />
+					<p:outputLabel value="#{empresaBean.empresa.cep}" mask="99999-999" />
+
+					<p:outputLabel value="Bairro: *" />
+					<p:outputLabel value="#{empresaBean.empresa.bairro}" />
+
+					<p:outputLabel value="Logradouro: * " />
+					<p:outputLabel value="#{empresaBean.empresa.logradouro}" />
+
+					<p:outputLabel value="Nº: *" />
+					<p:outputLabel value="#{empresaBean.empresa.numeroLocal}" />
+				</h:panelGrid>
+
+				<br />
+
+				<h:outputLabel value="Informações de contato" />
+				<hr />
+				<h:panelGrid cellpadding="5" columns="2">
+					<p:outputLabel value="E-mail: * " />
+					<p:outputLabel value="#{empresaBean.empresa.email}" />
+
+					<p:outputLabel value="Nome do Proprietário: *" />
+					<p:outputLabel value="#{empresaBean.empresa.nomeProprietario}" />
+
+					<p:outputLabel value="Telefone: *" />
+					<p:outputLabel value="#{empresaBean.empresa.telefone}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel value="Horário de Abertura: *" />
+					<p:outputLabel value="#{empresaBean.empresa.horarioAbertura}"
+						pattern="HH:mm" />
+
+					<p:outputLabel value="Horário de Fechamento: *" />
+					<p:outputLabel value="#{empresaBean.empresa.horarioFechamento}"
+						pattern="HH:mm" />
+				</h:panelGrid>
+
+				<br />
+
+				<p:outputLabel for="diasAberto" value="Dias de abertura: " />
+				<h:panelGrid id="diasAberto" cellpadding="3" columns="14">
+					<p:selectBooleanCheckbox itemLabel="Segunda"
+						value="#{empresaBean.empresa.segunda}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Terça"
+						value="#{empresaBean.empresa.terca}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Quarta"
+						value="#{empresaBean.empresa.quarta}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Quinta"
+						value="#{empresaBean.empresa.quinta}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Sexta"
+						value="#{empresaBean.empresa.sexta}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Sabado"
+						value="#{empresaBean.empresa.sabado}" disabled="true" />
+					<p:selectBooleanCheckbox itemLabel="Domingo"
+						value="#{empresaBean.empresa.domingo}" disabled="true" />
+				</h:panelGrid>
+
+				<br />
+
+				<p:outputLabel for="ValidarEmp" value="Validar Empresa: " />
+				<p:selectOneRadio id="ValidarEmp"
+					value="#{empresaBean.empresa.validado}">
+					<f:selectItem itemLabel="Aprovado" itemValue="true" />
+					<f:selectItem itemLabel="Reprovado" itemValue="false" />
+				</p:selectOneRadio>
+
+				<h:panelGrid columns="3">
+					<p:commandButton value="Salvar"
+						actionListener="#{empresaBean.alterarStatus(empresaBean.empresa)}"
+						update="messages" >
+					</p:commandButton>
+
+					<p:button value="Voltar" outcome="/pages/empresa.xhtml" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -43,6 +43,8 @@
 						oncomplete="#{administradorBean.listarAdministrador()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
+					
+					<p:button value="Voltar" outcome="/pages/principal.xhtml" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
@@ -88,9 +90,9 @@
 					</p:column>
 
 					<p:column headerText="Ações">
-						<p:commandButton icon="ui-icon-close" value="Alterar" />
-<!-- 							update="cadastroAdministrador:messages gridAdmin" -->
-<!-- 							oncomplete="#{administradorBean.listarAdministrador()}" -->
+						<p:button icon="ui-icon-pencil" outcome="/pages/administradorDados.xhtml" >
+							<f:param name="codAdmin" value="#{admin.codAdmin}"/>
+						</p:button>
 					</p:column>
 
 				</p:dataTable>

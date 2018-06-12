@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/modeloGeral.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{promocaoBean.listarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:messages id="messages" closable="true" />
+			<p:panel header="Alterar Promoções" id="panelSave">
+				<h:panelGrid>
+					<p:outputLabel value="Tipo da Promoção: *" />
+					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+						<p:selectOneRadio id="console"
+							value="#{promocaoBean.promocao.tipoPromocao}">
+							<f:selectItem itemLabel="Real - R$" itemValue="1" />
+							<f:selectItem itemLabel="Porcentagem - %" itemValue="2" />
+						</p:selectOneRadio>
+					</h:panelGrid>
+
+					<p:outputLabel for="dtinicio" value="Data de Início:" />
+					<p:calendar id="dtinicio" value="#{promocaoBean.promocao.dtInicio}"
+						pattern="dd/MM/yyyy" navigator="true" />
+
+					<p:outputLabel for="dtfim" value="Data Fim:" />
+					<p:calendar id="dtfim" value="#{promocaoBean.promocao.dtFim}"
+						pattern="dd/MM/yyyy" navigator="true" />
+
+					<p:outputLabel value="Preço: *" />
+					<h:panelGrid columns="2">
+						<p:outputLabel value="R$ " escape="%" />
+						<p:inputNumber value="#{promocaoBean.promocao.valorPromocao}"
+							decimalSeparator="," maxlength="6" size="10" />
+					</h:panelGrid>
+
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{promocaoBean.alterar()}" update="messages">
+					</p:commandButton>
+					
+					<p:button value="Voltar" outcome="/pages/promocao.xhtml" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

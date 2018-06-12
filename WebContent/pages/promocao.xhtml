@@ -13,7 +13,7 @@
 			<p:messages id="messages" closable="true" />
 			<p:panel header="Cadastrar Promoções" id="panelSave">
 				<h:panelGrid>
-					<p:outputLabel value="Tipo da Promoção: *" />
+					<p:outputLabel value="Tipo da Promoção: " indicateRequired="true"/>
 					<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 						<p:selectOneRadio id="console"
 							value="#{promocaoBean.promocao.tipoPromocao}">
@@ -22,17 +22,17 @@
 						</p:selectOneRadio>
 					</h:panelGrid>
 
-					<p:outputLabel for="dtinicio" value="Data de Início:" />
+					<p:outputLabel for="dtinicio" value="Data de Início:" indicateRequired="true"/>
 					<p:calendar id="dtinicio" value="#{promocaoBean.promocao.dtInicio}"
 						pattern="dd/MM/yyyy" navigator="true" />
 
-					<p:outputLabel for="dtfim" value="Data Fim:" />
+					<p:outputLabel for="dtfim" value="Data Fim:" indicateRequired="true"/>
 					<p:calendar id="dtfim" value="#{promocaoBean.promocao.dtFim}"
 						pattern="dd/MM/yyyy" navigator="true" />
 
 					<p:outputLabel value="Preço: *" />
 					<h:panelGrid columns="2">
-						<p:outputLabel value="R$ " />
+						<p:outputLabel value="R$ " indicateRequired="true"/>
 						<p:inputNumber value="#{promocaoBean.promocao.valorPromocao}"
 							decimalSeparator="," maxlength="6" size="10" />
 					</h:panelGrid>
@@ -45,10 +45,12 @@
 						oncomplete="#{promocaoBean.listarPromocoes()}">
 						<p:resetInput target="panelSave" />
 					</p:commandButton>
+
+					<p:button value="Voltar" outcome="/pages/principal.xhtml" />
 				</h:panelGrid>
 			</p:panel>
 		</h:form>
-		
+
 		<h:form id="listarPromo">
 			<p:panel header="Listagem de Promoções" id="panelGrid">
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
@@ -58,30 +60,37 @@
 					<p:column headerText="Código">
 						<h:outputText value="#{promo.codPromocao}" />
 					</p:column>
-					
+
 					<p:column headerText="Tipo da Promoção">
 						<h:outputText value="#{promo.tipoPromocao}" />
 					</p:column>
-					
+
 					<p:column headerText="Data de Início">
 						<h:outputText value="#{promo.dtInicio}"
 							converter="javax.faces.DateTime" />
 					</p:column>
-					
+
 					<p:column headerText="Data Fim">
 						<h:outputText value="#{promo.dtFim}"
 							converter="javax.faces.DateTime" />
 					</p:column>
-					
+
 					<p:column headerText="Valor">
 						<h:outputText value="#{promo.valorPromocao}" />
 					</p:column>
 
 					<p:column headerText="Ações">
-						<p:commandButton icon="ui-icon-close"
+						<p:button icon="ui-icon-pencil" title="Alterar"
+							outcome="/pages/promocaoDados.xhtml">
+							<f:param name="codPromocao" value="#{promo.codPromocao}" />
+						</p:button>
+
+						<p:commandButton icon="ui-icon-close" title="Excluir"
 							actionListener="#{promocaoBean.deletar(promo)}"
-							update="cadastroPromo:messages gridPromo"
-							oncomplete="#{promocaoBean.listarPromocoes()}" />
+							update="cadastroPromo:messages listarPromo:gridPromo">
+							<f:event listener="#{promocaoBean.listarPromocoes}"
+								type="preRenderView" />
+						</p:commandButton>
 					</p:column>
 				</p:dataTable>
 			</p:panel>

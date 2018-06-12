@@ -87,6 +87,21 @@ public class FeedbackBean {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Feedbacks!");
 		}
 	}
+	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codFeedback");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				FeedbackDAO feedbackDAO = new FeedbackDAO();
+				feedback = feedbackDAO.ListarPorEntidade(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Administrador!");
+		}
+	}
 
 	public void salvar() throws ParseException {
 		try {
@@ -104,6 +119,17 @@ public class FeedbackBean {
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar o Feedback!. Contate o Administrador do sistema!");
 		}	
+	}
+	
+	public void alterar() {
+		try {
+			FeedbackDAO feedbackDAO = new FeedbackDAO();
+			feedbackDAO.alterar(feedback);
+			
+			facesUntil.adicionarMsgInfo("Feedback alterado com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Feedback. Favor contatar o administrador do sistema!");
+		}
 	}
 	
 	public void deletar(Feedback feedback) {

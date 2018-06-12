@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.org.yamash.dao.EmpresaDAO;
 import br.org.yamash.dao.ItemDAO;
@@ -65,6 +65,24 @@ public class ItemBean {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Itens!");
 		}
 	}
+	
+	public void listarCadastro() {
+		try {
+			String valor = facesUntil.getParam("codItem");
+			
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+				
+				ItemDAO itemDAO = new ItemDAO();
+				item = itemDAO.ListarPorEntidade(codigo);
+				
+				EmpresaDAO fd1 = new EmpresaDAO();
+				empresas = fd1.Listar();
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Carregar o cadastro do Item!");
+		}
+	}
 
 	public void salvar() {
 		try {
@@ -78,6 +96,18 @@ public class ItemBean {
 			item = new Item();
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro ao Salvar o Item. Favor contate o administrador do sistema!");
+		}
+	}
+	
+	public void alterar() {
+		try {
+			ItemDAO itemDAO = new ItemDAO();
+			item.setFoto("SemFoto");
+			itemDAO.alterar(item);
+			
+			facesUntil.adicionarMsgInfo("Item alterado com sucesso");
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Item. Favor contatar o administrador do sistema!");
 		}
 	}
 	
