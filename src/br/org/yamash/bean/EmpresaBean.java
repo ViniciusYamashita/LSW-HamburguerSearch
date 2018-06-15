@@ -13,6 +13,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 
 import br.org.yamash.dao.EmpresaDAO;
+import br.org.yamash.dao.ItemDAO;
 import br.org.yamash.domain.Empresa;
 import br.org.yamash.until.facesUntil;
 
@@ -116,6 +117,23 @@ public class EmpresaBean {
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação da Empresa. Favor contatar o administrador do sistema!");
 		}
+	}
+	
+	public void listarEmpresaDona() {
+		String valor = facesUntil.getParam("codEmpresa");
+
+		try {
+			if (valor != null) {
+				Long codigo = Long.parseLong(valor);
+
+				EmpresaDAO empresaDAO = new EmpresaDAO();
+				empresa = empresaDAO.listarEmpresaDona(codigo);
+			}
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro(
+					"Ocorreu um erro ao listar os Itens da empresa. Favor contatar o administrador do sistema!");
+		}
+
 	}
 
 }

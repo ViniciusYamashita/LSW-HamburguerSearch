@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Consultar Hamburguer</title>
+</h:head>
+<h:body>
+
+	<!-- 	Estabelecer area de formulario -->
+	<h:form>
+		<p:panel header="Consultar Hamburgues" id="consultaPanel">
+			<h:panelGrid>
+				<p:outputLabel value="Nome do Produto: *" />
+				<p:inputText size="50" maxlength="80" value="#{itemBean.item.nome}" />
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Pesquisar"
+					actionListener="#{itemBean.salvar()}"
+					update="listarItems:panelGrid"
+					oncomplete="#{itemBean.listarItens()}">
+				</p:commandButton>
+
+				<p:button value="Pesquisar por Empresas"
+					outcome="/pages/consultaEmpresa.xhtml" />
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+
+	<h:form id="listarItems">
+		<p:panel header="Listagem dos Itens" id="panelGrid">
+			<!-- 		O data table mostra os dados -->
+			<!-- 		Empty message altera mensagem -->
+			<!-- 		Empty message altera mensagem -->
+			<p:dataTable emptyMessage="Nenhum registro encontrado" id="gridItem"
+				paginator="true" value="#{itemBean.itens}" var="item">
+
+				<p:column headerText="Nome do Produto">
+					<h:outputText value="#{item.nome}" />
+				</p:column>
+
+				<p:column headerText="Descição">
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+
+				<p:column headerText="Preço">
+					<h:outputText value="#{item.preco}" />
+				</p:column>
+
+				<p:column headerText="Nome da Empresa">
+					<h:outputText value="#{item.codEmpresa.nome}" />
+				</p:column>
+
+				<p:column headerText="Disponibilidade">
+						<p:inputSwitch disabled="true" value="#{item.situacaoItem}" onLabel="Disponível"
+							offLabel="Indisponível">
+							<p:ajax listener="#{itemBean.alterarStatus(item)}"
+								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
+						</p:inputSwitch>
+					</p:column>
+
+					<p:column headerText="Situação">
+						<p:inputSwitch disabled="true" value="#{item.statusItem}" onLabel="Ativo"
+							offLabel="Inativo">
+							<p:ajax listener="#{itemBean.alterarStatus(item)}"
+								update="gridItem" oncomplete="#{itemBean.listarItens()}" />
+						</p:inputSwitch>
+					</p:column>
+
+				<p:column headerText="Ações">
+					<p:button icon="ui-icon-search" outcome="/pages/itemExibir.xhtml">
+						<f:param name="codItem" value="#{item.codItem}" />
+						<f:param name="codEmpresa" value="#{item.codEmpresa.codEmpresa}" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+</h:body>
+</html>

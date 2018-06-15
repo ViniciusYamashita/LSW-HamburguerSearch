@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import br.org.yamash.dao.AdministradorDAO;
+import br.org.yamash.dao.ItemDAO;
 import br.org.yamash.domain.Administrador;
+import br.org.yamash.domain.Item;
 
 public class TesteFabricante {
 
@@ -34,10 +36,16 @@ public class TesteFabricante {
 //		admin.setCodAdmin(2l);
 //		testeListarPorEntidade(admin);
 //		
-		autenticar();
+//		autenticar();
+//		
+//		admin.setCodAdmin(2l);
+//		testeDeletar(admin);
 		
-		admin.setCodAdmin(2l);
-		testeDeletar(admin);
+//		ItemDAO item = new ItemDAO();
+//		List<Item> itens = item.consultarPorEmpresa();
+		
+//		System.out.println("Itens" + itens);
+		
 	}
 	
 	private static void testeSalvar (Administrador admin) {
