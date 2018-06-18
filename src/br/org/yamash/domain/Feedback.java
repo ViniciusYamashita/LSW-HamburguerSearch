@@ -11,7 +11,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name="Feedback")
 @NamedQueries({
-	@NamedQuery(name="feedback.calcularMediaItem", query="SELECT AVG(valorMedia) FROM Feedback feedback WHERE feedback.codItem = :codItem")
+	@NamedQuery(name="feedback.calcularMediaItem", query="SELECT AVG(valorMedia) FROM Feedback feedback WHERE feedback.codItem = :codItem"),
+	@NamedQuery(name="feedback.feedbackItens", query="SELECT feedbacks FROM Feedback feedbacks WHERE codItem = :codItem")
 })
 public class Feedback {
 	

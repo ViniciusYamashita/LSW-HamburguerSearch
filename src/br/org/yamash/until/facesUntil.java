@@ -6,6 +6,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import br.org.yamash.domain.Usuario;
+
 
 public class facesUntil {
 	public static void adicionarMsgInfo(String mensagem) {
@@ -34,7 +36,7 @@ public class facesUntil {
 	
 	public static Object getUserSession () {
 		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-		Object usuarioLogado = (Object) context.getSessionMap().get("autenticacaoBean");
+		Object usuarioLogado = context.getSessionMap().get("autenticacaoBean");
 		return usuarioLogado;
 	}
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/template/menuPrincipal.xhtml">
+	<ui:define name="principal">
+
+		<h:form id="listarItemPromo">
+			<p:panel header="Listagem dos item da promoção" id="panelGrid">
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+					id="gridItemPromo" paginator="true"
+					value="#{itemPromocaoBean.itensPromo}" var="itenspromo">
+
+					<p:column headerText="Hamburguer">
+						<h:outputText value="#{itenspromo.codItem.nome}" />
+					</p:column>
+
+					<p:column headerText="Promoção">
+						<h:outputText value="#{promocaoBean.simboloPromocao()} #{itenspromo.codPromocao.valorPromocao}"/>
+					</p:column>
+
+					<p:column headerText="Período da Promoção">
+						<h:outputText value="#{itenspromo.codPromocao.dtInicio}" converter="javax.faces.DateTime" />
+						<h:outputText value=" - " />
+						<h:outputText value="#{itenspromo.codPromocao.dtFim}" converter="javax.faces.DateTime" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

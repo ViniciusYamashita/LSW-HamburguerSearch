@@ -29,7 +29,7 @@ public class autenticacaoBean {
 		this.usuario = usuario;
 	}
 
-	public void entrar() {
+	public String entrar() {
 		try {
 			
 			Administrador adminlogado;
@@ -38,23 +38,31 @@ public class autenticacaoBean {
 			
 			if ((adminlogado = AdministradorDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Administrador logado com sucesso");
-				usuario.setCodigo(adminlogado.getCodAdmin());
+				return "/pages/principal.xhtml?faces-redirect=true";
 				
 			} else if ((empresalogada = EmpresaDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Empresa logado com sucesso");
-				usuario.setCodigo(empresalogada.getCodEmpresa());
+				return "/pages/principal.xhtml?faces-redirect=true";
 				
 			} else if ((clientelogado = ClientesDAO.autenticar(usuario.getLogin(), usuario.getSenha())) != null) {
 				facesUntil.adicionarMsgInfo("Cliente logado com sucesso");
-				usuario.setCodigo(clientelogado.getCodCliente());
+				usuario.setUsuarioSup(clientelogado);
+				return "/pages/principal.xhtml?faces-redirect=true";
 				
 			} else {
 				facesUntil.adicionarMsgErro("Login ou Senha inválidos.");
+				return null;
 				
 			}
 		} catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Erro ao tentar autenticar no sistema:" + ex.getMessage());
+			return null;
 		}
+	}
+	
+	public String sair() {
+		usuario = null;
+		return "/pages/autenticacao.xhtml?faces-redirect=true";
 	}
 
 }

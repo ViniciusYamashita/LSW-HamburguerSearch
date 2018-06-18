@@ -13,7 +13,7 @@
 		<h:form>
 			<p:panel header="Consultar Hamburgues" id="consultaPanel">
 				<h:panelGrid>
-					<p:outputLabel value="Nome do Produto: *" />
+					<p:outputLabel value="Nome do Produto: " />
 					<p:inputText size="50" maxlength="80" value="#{itemBean.item.nome}" />
 				</h:panelGrid>
 
@@ -22,9 +22,6 @@
 						actionListener="#{itemBean.buscarNomeItem()}"
 						update="listarItems:gridItem">
 					</p:commandButton>
-
-					<p:button value="Pesquisar por Empresas"
-						outcome="/pages/consultaEmpresa.xhtml" />
 						
 				</h:panelGrid>
 			</p:panel>

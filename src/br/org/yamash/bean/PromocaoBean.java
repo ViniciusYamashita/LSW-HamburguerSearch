@@ -52,6 +52,7 @@ public class PromocaoBean {
 		try {
 			PromocaoDAO pd = new PromocaoDAO();
 			promocoes = pd.Listar();
+			
 		} catch (RuntimeException e) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar os Promoções!");
 		}
@@ -104,6 +105,16 @@ public class PromocaoBean {
 			facesUntil.adicionarMsgInfo("Promoção excluida com sucesso");
 		}catch (RuntimeException ex) {
 			facesUntil.adicionarMsgErro("Ocorreu um erro ao excluir o Promoção!.");
+		}
+	}
+	
+	public String simboloPromocao() {
+		
+		if (promocao.getTipoPromocao() != 1) {
+			return "R$";
+		}
+		else {
+			return "%";
 		}
 	}
 	

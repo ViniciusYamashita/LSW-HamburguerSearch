@@ -15,7 +15,7 @@
 					<p:panelMenu>
 						<p:submenu label="Configuração">
 							<p:menuitem value="Home" outcome="/pages/principal.xhtml" />
-							<p:menuitem value="Sair" />
+							<p:menuitem value="Sair" action="#{autenticacaoBean.sair()}" />
 						</p:submenu>
 						<p:submenu label="Cadastros">
 							<p:menuitem value="Administradores"

@@ -2,18 +2,18 @@ package br.org.yamash.domain;
 
 public class Usuario {
 	
-	private long codigo;
+	private Clientes usuario;
 	
 	private String login;
 	
 	private String senha;
 	
-	public long getCodigo() {
-		return codigo;
+	public Clientes getUsuarioSup() {
+		return usuario;
 	}
 
-	public void setCodigo(long codigo) {
-		this.codigo = codigo;
+	public void setUsuarioSup(Clientes usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getLogin() {

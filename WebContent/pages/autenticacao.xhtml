@@ -32,9 +32,9 @@
 
 			<h:panelGrid columns="3">
 				<p:commandButton value="Entrar"
-					actionListener="#{autenticacaoBean.entrar()}" />
+					action="#{autenticacaoBean.entrar()}" />
 
-				<p:commandButton value="Fechar" />
+				<p:button value="Fechar" outcome="/pages/consultaItem.xhtml" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
