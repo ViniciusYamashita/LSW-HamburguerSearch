@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.org.yamash.dao.EmpresaDAO;
+import br.org.yamash.dao.FeedbackDAO;
 import br.org.yamash.dao.ItemDAO;
 import br.org.yamash.domain.Empresa;
 import br.org.yamash.domain.Item;
@@ -141,13 +142,32 @@ public class ItemBean {
 
 	}
 
+	public void buscarNomeItem() {
+
+		try {
+			ItemDAO itemDAO = new ItemDAO();
+			itens = itemDAO.filtrarPorNomeItem(item.getNome());
+			if (itens == null) {
+				facesUntil.adicionarMsgErro("Não existem itens cadastrados com esse nome!");
+			}
+
+		} catch (RuntimeException erro) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao buscar Item!");
+		}
+	}
+
 	// Metodos Gerais..... Metodo do calculo da media do produto
 
-	// public Int calcularMediaItem() {
-	//
-	//
-	//
-	// return media;
-	// }
+	public Integer calcularMediaItem() {
+		try {
+			FeedbackDAO feedbackDAO = new FeedbackDAO();
+			Integer media = feedbackDAO.calcularMediaItem(item.getCodItem());
 
+			return media;
+
+		} catch (RuntimeException ex) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro ao calcular a media do Item");
+		}
+		return null;
+	}
 }

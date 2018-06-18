@@ -6,124 +6,145 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Consultar Hamburguer</title>
-</h:head>
+<ui:composition template="/template/menuPrincipal.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{itemBean.listarCadastro}" type="preRenderView" />
+			<f:event listener="#{empresaBean.listarEmpresaDona}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
 
-<ui:define name="metadata">
-	<f:metadata>
-		<f:event listener="#{itemBean.listarCadastro}" type="preRenderView" />
-		<f:event listener="#{empresaBean.listarEmpresaDona}"
-			type="preRenderView" />
-	</f:metadata>
-</ui:define>
-
-<h:body>
-
-	<h:form>
-		<p:messages id="messages" closable="true" />
-		<p:panel header="Item" id="panelSave">
-			<h:panelGrid columns="5">
-				<h:panelGrid>
-					<p:outputLabel value="Nome do Produto: *" />
-					<p:inputText disabled="true" size="50" maxlength="80"
-						value="#{itemBean.item.nome}" />
-				</h:panelGrid>
+	<ui:define name="principal">
+		<h:form>
+			<p:messages id="messages" closable="true" />
+			<p:panel header="Exibir Hamburguer" id="panelSave">
+				<h:panelGrid columns="5">
+					<h:panelGrid>
+						<p:outputLabel value="Nome do Produto: *" />
+						<p:inputText disabled="true" size="50" maxlength="80"
+							value="#{itemBean.item.nome}" />
+					</h:panelGrid>
 				
 				 &nbsp;
 				<h:panelGrid>
-					<h:outputText value="Média: *" />
-					<p:rating disabled="true" />
-				</h:panelGrid>
+						<h:outputText value="Média: *" />
+						<p:rating disabled="true" value="#{itemBean.calcularMediaItem()}" />
+					</h:panelGrid>
 
 				 &nbsp;
 				<h:panelGrid>
-					<p:outputLabel value="Preço: *" />
-					<h:panelGrid columns="2">
-						<p:outputLabel value="R$ " />
-						<p:inputNumber disabled="true" value="#{itemBean.item.preco}"
-							decimalSeparator="," maxlength="6" />
-					</h:panelGrid>
-				</h:panelGrid>
-
-				<h:panelGrid>
-					<p:outputLabel value="Descrição: *" />
-					<p:inputTextarea disabled="true" rows="5" cols="50"
-						counter="display" maxlength="500"
-						counterTemplate="{0} caracteres restante." autoResize="false"
-						value="#{itemBean.item.descricao}" />
-					<h:outputText id="display" />
-				</h:panelGrid>
-				<p>
-					<h:panelGrid>
-						<p:outputLabel value="Nome da Empresa : *" />
-						<p:outputLabel value="#{empresaBean.empresa.nome}" />
-
-						<hr />
-
-						<p:outputLabel value="Telefone: *" />
-						<p:outputLabel value="#{empresaBean.empresa.telefone}" />
-					</h:panelGrid>
-
-					<h:panelGrid cellpadding="5">
-						<p:outputLabel value="Horário de Abertura: *" />
-						<p:outputLabel value="#{empresaBean.empresa.horarioAbertura}"
-							pattern="HH:mm" />
-
-						<p:outputLabel value="Horário de Fechamento: *" />
-						<p:outputLabel value="#{empresaBean.empresa.horarioFechamento}"
-							pattern="HH:mm" />
-					</h:panelGrid>
-					<h:panelGrid>
-						<p:outputLabel for="diasAberto" value="Dias de abertura: " />
-						<h:panelGrid id="diasAberto" cellpadding="3" columns="4">
-							<p:selectBooleanCheckbox itemLabel="Segunda"
-								value="#{empresaBean.empresa.segunda}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Terça"
-								value="#{empresaBean.empresa.terca}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Quarta"
-								value="#{empresaBean.empresa.quarta}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Quinta"
-								value="#{empresaBean.empresa.quinta}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Sexta"
-								value="#{empresaBean.empresa.sexta}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Sabado"
-								value="#{empresaBean.empresa.sabado}" disabled="true" />
-							<p:selectBooleanCheckbox itemLabel="Domingo"
-								value="#{empresaBean.empresa.domingo}" disabled="true" />
+						<p:outputLabel value="Preço: *" />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="R$ " />
+							<p:inputNumber disabled="true" value="#{itemBean.item.preco}"
+								decimalSeparator="," maxlength="6" />
 						</h:panelGrid>
 					</h:panelGrid>
 
 					<h:panelGrid>
-						<p:outputLabel for="situacao" value="Situação do Item" />
-						<h:panelGrid columns="4" style="margin-bottom:10px"
-							cellpadding="5">
-							<p:selectOneRadio id="situacao" disabled="true"
-								value="#{itemBean.item.situacaoItem}">
-								<f:selectItem itemLabel="Disponível" itemValue="true"
-									itemEscaped="true" />
-								<f:selectItem itemLabel="Indisponível" itemValue="false" />
-							</p:selectOneRadio>
-						</h:panelGrid>
+						<p:outputLabel value="Descrição: *" />
+						<p:inputTextarea disabled="true" rows="5" cols="50"
+							counter="display" maxlength="500"
+							counterTemplate="{0} caracteres restante." autoResize="false"
+							value="#{itemBean.item.descricao}" />
+						<h:outputText id="display" />
 					</h:panelGrid>
+					<p>
+						<h:panelGrid>
+							<p:outputLabel value="Nome da Empresa : *" />
+							<p:outputLabel value="#{empresaBean.empresa.nome}" />
 
-					&nbsp;&nbsp;
+							<hr />
 
-					<p:button value="Quer saber mais da empresa"
-						outcome="/pages/empresaExibir.xhtml">
-						<f:param name="codEmpresa"
-							value="#{empresaBean.empresa.codEmpresa}" />
-					</p:button>
-				</p>
-			</h:panelGrid>
+							<p:outputLabel value="Telefone: *" />
+							<p:outputLabel value="#{empresaBean.empresa.telefone}" />
+						</h:panelGrid>
 
-			<h:panelGrid columns="2">
+						<h:panelGrid cellpadding="5">
+							<p:outputLabel value="Horário de Abertura: *" />
+							<p:outputLabel value="#{empresaBean.empresa.horarioAbertura}"
+								pattern="HH:mm" />
 
-				<p:button value="Voltar" outcome="/pages/consultaItem.xhtml" />
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
+							<p:outputLabel value="Horário de Fechamento: *" />
+							<p:outputLabel value="#{empresaBean.empresa.horarioFechamento}"
+								pattern="HH:mm" />
+						</h:panelGrid>
+						<h:panelGrid>
+							<p:outputLabel for="diasAberto" value="Dias de abertura: " />
+							<h:panelGrid id="diasAberto" cellpadding="3" columns="4">
+								<p:selectBooleanCheckbox itemLabel="Segunda"
+									value="#{empresaBean.empresa.segunda}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Terça"
+									value="#{empresaBean.empresa.terca}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Quarta"
+									value="#{empresaBean.empresa.quarta}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Quinta"
+									value="#{empresaBean.empresa.quinta}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Sexta"
+									value="#{empresaBean.empresa.sexta}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Sabado"
+									value="#{empresaBean.empresa.sabado}" disabled="true" />
+								<p:selectBooleanCheckbox itemLabel="Domingo"
+									value="#{empresaBean.empresa.domingo}" disabled="true" />
+							</h:panelGrid>
+						</h:panelGrid>
 
-</h:body>
+						<h:panelGrid>
+							<p:outputLabel for="situacao" value="Situação do Item" />
+							<h:panelGrid columns="4" style="margin-bottom:10px"
+								cellpadding="5">
+								<p:selectOneRadio id="situacao" disabled="true"
+									value="#{itemBean.item.situacaoItem}">
+									<f:selectItem itemLabel="Disponível" itemValue="true"
+										itemEscaped="true" />
+									<f:selectItem itemLabel="Indisponível" itemValue="false" />
+								</p:selectOneRadio>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						&nbsp;&nbsp;
+
+						<p:button value="Quer saber mais da empresa"
+							outcome="/pages/empresaExibir.xhtml">
+							<f:param name="codEmpresa"
+								value="#{empresaBean.empresa.codEmpresa}" />
+						</p:button>
+					</p>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+
+					<p:button value="Voltar" outcome="/pages/consultaItem.xhtml" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<h:form id="listarFeedback">
+			<p:panel header="Listagem dos Feedbacks" id="panelGrid">
+				<!-- 		O data table mostra os dados -->
+				<!-- 		Empty message altera mensagem -->
+				<!-- 		Empty message altera mensagem -->
+				<p:dataTable emptyMessage="Nenhum registro encontrado" id="dataGrid"
+					paginator="true" rows="5" value="#{feedbackBean.feedbacks}"
+					var="feedback">
+
+					<p:column headerText="Cliente">
+						<h:outputText value="#{feedback.codCliente.nomeCompleto}" />
+					</p:column>
+
+					<p:column headerText="Média">
+						<p:rating disabled="true" value="#{feedback.valorMedia}" />
+					</p:column>
+
+					<p:column headerText="Comentario">
+						<h:outputText value="#{feedback.comentario}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
 </html>

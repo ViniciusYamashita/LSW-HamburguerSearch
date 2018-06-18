@@ -29,5 +29,25 @@ public class ItemDAO extends BaseDAO<Item> {
 			s.close();
 		}
 	}
+	
+	public List<Item> filtrarPorNomeItem(String nome) {
+
+		Session s = HibernateUtil.getSessionFactory().openSession();
+
+		try {
+			Query query = s.getNamedQuery("item.buscarPorNomeItem");
+			query.setString("nome", nome);
+
+			List<Item> rs = query.list();
+			List<Item> rt = rs;
+			return rs;
+
+		} catch (RuntimeException ex) {
+			throw ex;
+
+		} finally {
+			s.close();
+		}
+	}
 
 }

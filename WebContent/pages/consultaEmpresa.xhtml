@@ -1,104 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Consultar Empresas</title>
-</h:head>
-<h:body>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/template/menuPrincipal.xhtml">
 
-	<!-- 	Estabelecer area de formulario -->
-	<h:form>
-		<p:panel header="Consultar Empresas" id="consultaPanel">
-			<h:panelGrid>
-				<p:outputLabel value="Empresa: *" />
-				<p:selectOneMenu id="empresa" value="#{itemBean.item.codEmpresa}"
-					style="width:250px" converter="empresaConverter">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItems value="#{itemBean.empresas}" var="emp"
-						itemLabel="#{emp.nome}" itemValue="#{emp}" />
-				</p:selectOneMenu>
-			</h:panelGrid>
+	<ui:define name="principal">
 
-			<h:panelGrid columns="2">
-				<p:commandButton value="Pesquisar"
-					actionListener="#{itemBean.salvar()}"
-					oncomplete="#{itemBean.listarItens()}">
-				</p:commandButton>
+		<!-- 	Estabelecer area de formulario -->
+		<h:form>
+			<p:panel header="Consultar Empresas" id="consultaPanel">
+				<h:panelGrid>
+					<p:outputLabel value="Nome da Empresa: " />
+					<p:inputText size="50" maxlength="80" value="#{empresaBean.empresa.nome}" />
+				</h:panelGrid>
 
-				<p:button value="Pesquisar por Item"
-					outcome="/pages/consultaItem.xhtml" />
-			</h:panelGrid>
-		</p:panel>
-	</h:form>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Pesquisar"
+						actionListener="#{empresaBean.buscarNomeItem()}"
+						update="listarEmpresas:dataGrid">
+					</p:commandButton>
 
-	<h:form id="listarEmpresas">
-		<p:panel header="Listagem Empresa" id="panelGrid">
-			<p:dataTable widgetVar="tabela"
-				emptyMessage="Nenhum registro encontrado" paginator="true" rows="5"
-				value="#{empresaBean.empresas}" var="cursor">
-				<p:column headerText="CNPJ">
-					<h:outputText value="#{cursor.cnpj}" />
-				</p:column>
+					<p:button value="Pesquisar por Item"
+						outcome="/pages/consultaItem.xhtml" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
 
-				<p:column headerText="Nome da empresa">
-					<h:outputText value="#{cursor.nome}" />
-				</p:column>
+		<h:form id="listarEmpresas">
+			<p:panel header="Listagem Empresa" id="panelGrid">
+				<p:dataTable widgetVar="tabela" id="dataGrid"
+					emptyMessage="Nenhum registro encontrado" paginator="true" rows="5"
+					value="#{empresaBean.empresas}" var="cursor">
+					<p:column headerText="CNPJ">
+						<h:outputText value="#{cursor.cnpj}" />
+					</p:column>
 
-				<p:column headerText="Razão Social/Fantasia">
-					<h:outputText value="#{cursor.razaoSocialFantasia}" />
-				</p:column>
+					<p:column headerText="Nome da empresa">
+						<h:outputText value="#{cursor.nome}" />
+					</p:column>
 
-				<p:column headerText="CEP">
-					<h:outputText value="#{cursor.cep}" />
-				</p:column>
+					<p:column headerText="Razão Social/Fantasia">
+						<h:outputText value="#{cursor.razaoSocialFantasia}" />
+					</p:column>
 
-				<p:column headerText="Logradouro">
-					<h:outputText value="#{cursor.logradouro}" />
-				</p:column>
+					<p:column headerText="CEP">
+						<h:outputText value="#{cursor.cep}" />
+					</p:column>
 
-				<!-- 					<p:column headerText="Bairro"> -->
-				<!-- 						<h:outputText value="#{cursor.bairro}" /> -->
-				<!-- 					</p:column> -->
+					<p:column headerText="Logradouro">
+						<h:outputText value="#{cursor.logradouro}" />
+					</p:column>
 
-				<p:column headerText="E-mail">
-					<h:outputText value="#{cursor.email}" />
-				</p:column>
+					<!-- 					<p:column headerText="Bairro"> -->
+					<!-- 						<h:outputText value="#{cursor.bairro}" /> -->
+					<!-- 					</p:column> -->
 
-				<p:column headerText="Telefone">
-					<h:outputText value="#{cursor.telefone}" />
-				</p:column>
+					<p:column headerText="E-mail">
+						<h:outputText value="#{cursor.email}" />
+					</p:column>
 
-				<p:column headerText="Nome do Proprietário">
-					<h:outputText value="#{cursor.nomeProprietario}" />
-				</p:column>
+					<p:column headerText="Telefone">
+						<h:outputText value="#{cursor.telefone}" />
+					</p:column>
 
-				<!-- 					<p:column headerText="Horário de Abertura"> -->
-				<!-- 						<h:outputText value="#{cursor.horarioAbertura}" /> -->
-				<!-- 					</p:column> -->
+					<p:column headerText="Nome do Proprietário">
+						<h:outputText value="#{cursor.nomeProprietario}" />
+					</p:column>
 
-				<!-- 					<p:column headerText="Horário de Fechamento"> -->
-				<!-- 						<h:outputText value="#{cursor.horarioFechamento}" /> -->
-				<!-- 					</p:column> -->
+					<!-- 					<p:column headerText="Horário de Abertura"> -->
+					<!-- 						<h:outputText value="#{cursor.horarioAbertura}" /> -->
+					<!-- 					</p:column> -->
 
-				<p:column headerText="Situação">
-					<p:inputSwitch  disabled="true" value="#{cursor.statusEmpresa}" onLabel="Ativo"
-						offLabel="Inativo">
-					</p:inputSwitch>
-				</p:column>
+					<!-- 					<p:column headerText="Horário de Fechamento"> -->
+					<!-- 						<h:outputText value="#{cursor.horarioFechamento}" /> -->
+					<!-- 					</p:column> -->
 
-				<p:column headerText="Ações">
-					<p:button icon="ui-icon-search" outcome="/pages/empresaExibir.xhtml">
-						<f:param name="codEmpresa" value="#{cursor.codEmpresa}" />
-					</p:button>
-				</p:column>
+					<p:column headerText="Situação">
+						<p:inputSwitch disabled="true" value="#{cursor.statusEmpresa}"
+							onLabel="Ativo" offLabel="Inativo">
+						</p:inputSwitch>
+					</p:column>
 
-			</p:dataTable>
-		</p:panel>
-	</h:form>
+					<p:column headerText="Ações">
+						<p:button icon="ui-icon-search"
+							outcome="/pages/empresaExibir.xhtml">
+							<f:param name="codEmpresa" value="#{cursor.codEmpresa}" />
+						</p:button>
+					</p:column>
 
-</h:body>
-</html>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

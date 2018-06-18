@@ -5,11 +5,8 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Exibir Empresa</title>
-</h:head>
+	
+<ui:composition template="/template/menuPrincipal.xhtml">
 
 <ui:define name="metadata">
 	<f:metadata>
@@ -18,11 +15,11 @@
 	</f:metadata>
 </ui:define>
 
-<h:body>
+<ui:define name="principal">
 
 	<h:form>
 		<p:messages id="messages" closable="true" />
-		<p:panel header="Validar Empresa" id="panelCentral">
+		<p:panel header="Exibir Empresa" id="panelCentral">
 			<h:outputLabel value="Informações da Empresa" />
 			<hr />
 			<h:panelGrid id="panelSave" cellpadding="5" columns="2">
@@ -149,7 +146,7 @@
 				</p:column>
 
 				<p:column headerText="Ações">
-					<p:button icon="ui-icon-pencil" outcome="/pages/itemExibir.xhtml">
+					<p:button icon="ui-icon-search" outcome="/pages/itemExibir.xhtml">
 						<f:param name="codItem" value="#{item.codItem}" />
 						<f:param name="codEmpresa" value="#{empresaBean.empresa.codEmpresa}" />
 					</p:button>
@@ -158,5 +155,6 @@
 		</p:panel>
 	</h:form>
 
-</h:body>
+</ui:define>
+</ui:composition>
 </html>

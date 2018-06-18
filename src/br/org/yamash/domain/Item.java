@@ -9,7 +9,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name="Item")
 @NamedQueries({
-	@NamedQuery(name="item.listarPorEmpresa", query="SELECT itens FROM Item itens WHERE itens.codEmpresa = :codEmpresa")
+	@NamedQuery(name="item.listarPorEmpresa", query="SELECT itens FROM Item itens WHERE itens.codEmpresa = :codEmpresa"),
+	@NamedQuery(name="item.buscarPorNomeItem", query="SELECT itens FROM Item itens WHERE nome like :nome")
 })
 public class Item {
  

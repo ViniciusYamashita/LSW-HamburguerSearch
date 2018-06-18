@@ -62,14 +62,14 @@ public class EmpresaBean {
 			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Listar as Empresas!");
 		}
 	}
-	
+
 	public void listarCadastro() {
 		try {
 			String valor = facesUntil.getParam("codEmpresa");
-			
+
 			if (valor != null) {
 				Long codigo = Long.parseLong(valor);
-				
+
 				EmpresaDAO fd = new EmpresaDAO();
 				empresa = fd.ListarPorEntidade(codigo);
 			}
@@ -92,33 +92,36 @@ public class EmpresaBean {
 
 			empresa = new Empresa();
 		} catch (RuntimeException ex) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao Salvar Empresa!. Contate o Administrador do sistema!");
+			facesUntil.adicionarMsgErro(
+					"Ocorreu um erro generico ao Salvar Empresa!. Contate o Administrador do sistema!");
 		}
 	}
-	
+
 	public void alterar() {
 		try {
 			EmpresaDAO fd = new EmpresaDAO();
 			fd.alterar(empresa);
-			
+
 			facesUntil.adicionarMsgInfo("Empresa alterado com sucesso");
 		} catch (RuntimeException ex) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar o Empresa. Favor contatar o administrador do sistema!");
+			facesUntil.adicionarMsgErro(
+					"Ocorreu um erro ao Alterar o Empresa. Favor contatar o administrador do sistema!");
 		}
 	}
-	
+
 	public void alterarStatus(Empresa empresa) {
 		try {
 			EmpresaDAO empresaDAO = new EmpresaDAO();
 			empresaDAO.alterar(empresa);
-			
+
 			facesUntil.adicionarMsgInfo("Empresa Validada!");
-			
+
 		} catch (RuntimeException ex) {
-			facesUntil.adicionarMsgErro("Ocorreu um erro ao Alterar a situação da Empresa. Favor contatar o administrador do sistema!");
+			facesUntil.adicionarMsgErro(
+					"Ocorreu um erro ao Alterar a situação da Empresa. Favor contatar o administrador do sistema!");
 		}
 	}
-	
+
 	public void listarEmpresaDona() {
 		String valor = facesUntil.getParam("codEmpresa");
 
@@ -134,6 +137,20 @@ public class EmpresaBean {
 					"Ocorreu um erro ao listar os Itens da empresa. Favor contatar o administrador do sistema!");
 		}
 
+	}
+
+	public void buscarNomeItem() {
+
+		try {
+			EmpresaDAO empresaDAO = new EmpresaDAO();
+			empresas = empresaDAO.filtrarPorNomeEmpresa(empresa.getNome());
+			if (empresas == null) {
+				facesUntil.adicionarMsgErro("Não existem empresas cadastrados com esse nome!");
+			}
+
+		} catch (RuntimeException erro) {
+			facesUntil.adicionarMsgErro("Ocorreu um erro generico ao buscar Item!");
+		}
 	}
 
 }

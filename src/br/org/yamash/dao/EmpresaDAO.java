@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.org.yamash.domain.Empresa;
-import br.org.yamash.domain.Item;
 import br.org.yamash.until.HibernateUtil;
 
 public class EmpresaDAO extends BaseDAO<Empresa> {
@@ -40,6 +39,25 @@ public class EmpresaDAO extends BaseDAO<Empresa> {
 
 			Empresa rs = (Empresa) query.uniqueResult();
 			Empresa rt = rs;
+			return rs;
+
+		} catch (RuntimeException ex) {
+			throw ex;
+
+		} finally {
+			s.close();
+		}
+	}
+
+	public List<Empresa> filtrarPorNomeEmpresa(String nome) {
+		Session s = HibernateUtil.getSessionFactory().openSession();
+
+		try {
+			Query query = s.getNamedQuery("empresa.buscarPorNomeEmpresa");
+			query.setString("nome", nome);
+
+			List<Empresa> rs = query.list();
+			List<Empresa> rt = rs;
 			return rs;
 
 		} catch (RuntimeException ex) {

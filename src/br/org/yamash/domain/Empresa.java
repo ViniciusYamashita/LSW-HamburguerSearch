@@ -12,7 +12,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 @Table(name="Empresa")
 @NamedQueries({
 	@NamedQuery(name="empresa.autenticar", query="SELECT empresa FROM Empresa empresa WHERE empresa.nomeUsuario = :nomeUsuario AND empresa.senha = :senha"),
-	@NamedQuery(name="empresa.listarEmpresa", query="SELECT empresa FROM Empresa empresa, Item item WHERE empresa.codEmpresa = item.codEmpresa AND item.codEmpresa = :codEmpresa")
+	@NamedQuery(name="empresa.listarEmpresa", query="SELECT empresa FROM Empresa empresa, Item item WHERE empresa.codEmpresa = item.codEmpresa AND item.codEmpresa = :codEmpresa"),
+	@NamedQuery(name="empresa.buscarPorNomeEmpresa", query="SELECT empresa FROM Empresa empresa WHERE nome = :nome")
 })
 public class Empresa {
  
